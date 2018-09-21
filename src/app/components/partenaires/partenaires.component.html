@@ -1,0 +1,25 @@
+<div id="liste-partenaires">
+  <div class="partenaire" *ngFor="let p of partenaires">
+    <div class="partenaire-image" [style.backgroundImage]="'url('+ p.image +')'"></div>
+    <div class="partenaire-caption">
+      <h3 class="nom">{{ p.nom }}</h3>
+      <button class="btn btn-danger" (click)="deletePartenaire(p.id)">Supprimer</button>
+    </div>
+  </div>
+  <div id="add-box" class="partenaire" (click)="toggleModal(-1, 'add')">
+    <i class="fa fa-plus"></i>
+  </div>
+</div>
+
+<div id="modal" *ngIf="showModal">
+  <div>
+    <div class="close" (click)="toggleModal(-1, '')">
+      <i class="fa fa-times"></i>
+    </div>
+    <h1>{{ action == 'add' ? 'Ajouter un partenaire' : 'Modifier un partenaire' }}</h1>
+    <input class="input-group-text" type="text" placeholder="Nom" #nom />
+    <input class="input-group-text" type="file" name="file" placeholder="Image" #image />
+    <input class="input-group-text" type="text" placeholder="Lien facebook / site web / ..." #url />
+    <button type="submit" (click)="action == 'add' ? ajouterPartenaire(nom.value, image, url.value) : modifierPartenaire(nom.value, image, url.value)">Valider</button>
+  </div>
+</div>

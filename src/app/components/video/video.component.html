@@ -1,0 +1,6 @@
+<div class="video-container" (click)="handleClick()">
+  <video src="{{ src }}" poster="{{ poster }}"></video>
+  <div class="video-overlay" [style.opacity]="show ? 1 : 0">
+    <i class="fa fa-play"></i>
+  </div>
+</div>

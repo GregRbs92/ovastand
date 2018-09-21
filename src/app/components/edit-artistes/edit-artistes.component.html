@@ -1,0 +1,31 @@
+<div id="liste-artistes">
+  <div class="artiste" *ngFor="let a of artistes">
+    <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo +')'"></div>
+    <div class="artiste-caption">
+      <h3 class="nom">{{ a.nom }}</h3>
+      <p class="style">{{ a.styleMusical }}</p>
+      <button class="btn btn-primary" (click)="toggleModal(a, 'update')">Modifier</button>
+      <button class="btn btn-danger" (click)="deleteArtiste(a.id)">Supprimer</button>
+    </div>
+  </div>
+  <div id="add-box" class="artiste" (click)="toggleModal(-1, 'add')">
+    <i class="fa fa-plus"></i>
+  </div>
+</div>
+
+
+<div id="modal" *ngIf="showModal">
+  <div>
+    <div class="close" (click)="toggleModal(-1, '')">
+      <i class="fa fa-times"></i>
+    </div>
+    <h1>{{ action == 'add' ? 'Ajouter un artiste' : 'Modifier un artiste' }}</h1>
+    <input class="input-group-text" type="text" placeholder="Nom" #nom [value]="selectedArtiste.nom ? selectedArtiste.nom : ''" />
+    <input class="input-group-text" type="text" placeholder="Style musical" #style [value]="selectedArtiste.styleMusical ? selectedArtiste.styleMusical : ''" />
+    <textarea class="input-group-text" type="text" placeholder="Description" #description [value]="selectedArtiste.description ? selectedArtiste.description : ''"></textarea>
+    <input class="input-group-text" type="text" placeholder="Lien EMBED youtube" #video [value]="selectedArtiste.video ? selectedArtiste.video : ''" />
+    <input class="input-group-text" type="file" name="file" #photo />
+    <input class="input-group-text" type="text" placeholder="Lien facebook / site web / ..." #lien [value]="selectedArtiste.lien ? selectedArtiste.lien : ''" />
+    <button type="submit" form="artiste_form" (click)="action == 'add' ? ajouterArtiste(nom.value, style.value, description.value, photo, lien.value, video.value) : modifierArtiste(nom.value, style.value, description.value, photo, lien.value, video.value)">Valider</button>
+  </div>
+</div>

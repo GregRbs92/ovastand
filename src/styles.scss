@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  font-size:13px;
+  font-family: "Open Sans", sans-serif;
+  outline: none!important;
+  word-wrap: break-word;
+}
+
+::selection {
+  color: #ed6f7d;
+  background:#1e1a3b;
+  text-shadow: none;
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Dosis", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#artistes .ps:hover > .ps__rail-x,
+#artistes .ps:hover > .ps__rail-y,
+#artistes .ps--focus > .ps__rail-x,
+#artistes .ps--focus > .ps__rail-y,
+#artistes .ps--scrolling-x > .ps__rail-x,
+#artistes .ps--scrolling-y > .ps__rail-y {
+  background-color: transparent
+}
+
+#artistes .ps__rail-x:hover,
+#artistes .ps__rail-y:hover,
+#artistes .ps__rail-x:focus,
+#artistes .ps__rail-y:focus {
+  background-color: transparent;
+  width: 6px;
+}
+
+perfect-scrollbar>.ps.ps--active-y>.ps__rail-y {
+  width: 6px;
+}
+
+#artistes .description .ps__thumb-y {
+  background-color: #fff;
+  border-radius: 0;
+  right: 0;
+}
+
+.ps__rail-y:focus>.ps__thumb-y, .ps__rail-y:hover>.ps__thumb-y {
+  width: 6px!important;
+}

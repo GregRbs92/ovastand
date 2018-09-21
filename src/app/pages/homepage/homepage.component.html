@@ -1,0 +1,124 @@
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-transparent" [ngClass]="{'scrolled': scrolled}">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a [ngx-scroll-to]="'#header'" title="Accueil">ACCUEIL</a>
+      </li>
+      <li class="nav-item">
+        <a [ngx-scroll-to]="'#artistes'" title="Artistes">ARTISTES</a>
+      </li>
+      <li class="nav-item">
+        <a [ngx-scroll-to]="'#videos'" title="Videos">VIDEOS</a>
+      </li>
+      <li class="nav-item">
+        <a [ngx-scroll-to]="'#infos'" title="Infos pratiques">INFOS PRATIQUES</a>
+      </li>
+      <li class="nav-item">
+        <a [ngx-scroll-to]="'#partenaires'" title="Partenaires">PARTENAIRES</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div id="header" [style.backgroundImage]="'url(' + affiche + ')'">
+  <div class="loader" *ngIf="!affiche && !connectionError"><svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
+  <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
+</div>
+<div id="fb-video">
+  <app-video src="{{ video }}" [poster]="videoPoster"></app-video>
+</div>
+<section id="artistes" [style.backgroundColor]="colors['main_color']">
+  <h1>ARTISTES</h1>
+  <div class="separator">
+    <span>
+      <i class="fa fa-circle"></i>
+    </span>
+  </div>
+  <div class="portfolio" *ngIf="artisteFocused" [@slideDown]="artisteFocused">
+    <div *ngIf="artisteFocused.video;else img" class="video-container">
+      <iframe class="video-player" [src]='videoUrlSanitized(artisteFocused.video)'></iframe>
+    </div>
+
+    <ng-template #img>
+        <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo +')'"></div>
+    </ng-template>
+    
+    <div class="description">
+      <perfect-scrollbar>
+        <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closePortfolio()"></i>
+        <h2 [style.color]="colors['main_color']">{{ artisteFocused.nom }}</h2>
+        <hr>
+        <p *ngFor="let d of descriptionOnFocus">{{ d }}</p>
+        <p><a href="{{ artisteFocused.lien }}" target="_blank">{{ artisteFocused.lien }}</a></p>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+  <div class="loader" *ngIf="!artistes && !connectionError"><svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
+
+  <div id="liste-artistes">
+    <div class="artiste" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">
+      <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo +')'"></div>
+      <div class="artiste-caption">
+        <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
+        <p class="style">{{ a.styleMusical }}</p>
+      </div>
+    </div>
+    <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
+  </div>
+</section>
+
+<section id="videos" [style.backgroundColor]="colors['second_color']">
+  <div class="video" *ngFor="let v of videos">
+      <iframe class="video-unit" [src]="videoUrlSanitized(v)" allowfullscreen></iframe>
+  </div>
+</section>
+
+
+
+<section id="infos" [style.backgroundColor]="colors['main_color']">
+  <h1>INFOS <span [style.color]="colors['second_color']">PRATIQUES</span></h1>
+  <p>GRATUIT <span class="blue" [style.color]="colors['second_color']">//</span> Dès 16h</p>
+  <p>RESTAURATION SUR PLACE</p>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2626.73057163214!2d2.2162744278962374!3d48.82520193820314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67b0f14192369%3A0xe7475a213ac2e2a7!2sSquare+Carrier+Belleuse%2C+92310+S%C3%A8vres!5e0!3m2!1sfr!2sfr!4v1494573306210" width="100%" height="220" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+  <p>Square Carrier Belleuse, 92310 Sèvres</p>
+  <p>Métro Ligne 9 : Pont de Sèvres<br />Tramway T2 : Musée de sèvres<br />Bus 171, 426, 179, 169<br/>Voiture : N118, D910, RD7</p>
+  <p class="contact">CONTACT : <a href="mailto:infos@lesaiguilleurs.fr" [style.color]="colors['second_color']">INFOS@LESAIGUILLEURS.FR</a></p>
+
+  <div class="separator">
+    <span>
+      <i class="fa fa-circle"></i>
+    </span>
+  </div>
+
+  <p>Le Festival Les Aiguilleurs est organisé par l'association SUM et la ville de Sèvres.</p>
+
+  <a href="http://www.sum-asso.com" class="more">EN SAVOIR PLUS</a>
+</section>
+
+<div id="partenaires" [style.backgroundColor]="colors['second_color']">
+  <h1>PARTENAIRES</h1>
+  <div class="separator">
+    <span>
+      <i class="fa fa-circle"></i>
+    </span>
+  </div>
+  <div id="partenaires-container">
+    <div class="partenaire" *ngFor="let p of partenaires">
+      <a href="{{ p.url }}">
+        <img src="{{ p.image }}" alt="{{ p.nom }}">
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer [style.backgroundColor]="'#18191b'">
+  <p>Sum  Asso © 2018</p>
+  <p>Design : Florence Trouvat</p>
+  <p>Conception: Grégoire Rabasse &amp; Timothée Babinet</p>
+  <p>Tous droits réservés</p>
+</footer>

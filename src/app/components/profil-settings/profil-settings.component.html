@@ -1,0 +1,21 @@
+<div id="profil-settings">
+  <div id="mdp-container">
+    <h1>Modifier le mot de passe</h1>
+    <input type="password" placeholder="Ancien mot de passe" #old>
+    <input type="password" placeholder="Nouveau mot de passe" #new>
+    <input type="submit" value="Modifier" (click)="changePassword(old.value, new.value)">
+  </div>
+  <div>
+    <h1>Modifier les couleurs</h1>
+    <div>
+      <span class="color-container" [style.backgroundColor]="colors.main_color"></span>
+      <input type="text" #main>
+      <input type="submit" value="Changer" (click)="changeMainColor(main.value)">
+    </div>
+    <div>
+      <span class="color-container" [style.backgroundColor]="colors.second_color"></span>
+      <input type="text" #second>
+      <input type="submit" value="Changer" (click)="changeSecondColor(second.value)">
+    </div>
+  </div>
+</div>

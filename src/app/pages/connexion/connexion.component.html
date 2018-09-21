@@ -1,0 +1,10 @@
+<div id="connexion-form" [style.backgroundColor]="colors.second_color">
+    <div>
+        <input class="input-group-text" placeholder="Utilisateur" type="text" #username />
+        <input class="input-group-text" placeholder="Mot de passe" type="password" #password />
+    </div>
+    
+    <button class="btn btn-info" [style.backgroundColor]="colors.main_color" [style.borderColor]="colors.main_color" (click)="submit(username.value, password.value)">Se connecter</button>
+</div>
+
+
