@@ -22,30 +22,40 @@ export class ArtistesService {
     return this.http.delete(`${url_api}/artistes/${id}?access_token=${accessToken}`);
   }
 
-  ajouterArtiste(nom, style, description, photo, lien, video) {
+  ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
     const accessToken = localStorage.getItem('accessToken');
-    const p = `${url_api}/Containers/artistes/download/${photo}`;
+    const p1 = `${url_api}/Containers/artistes/download/${photo_profil}`;
+    const p2 = `${url_api}/Containers/artistes/download/${photo_couverture}`;
     return this.http.post<Artiste>(`${url_api}/artistes?access_token=${accessToken}`, {
       nom: nom,
-      styleMusical: style,
+      genre: genre,
       description: description,
-      photo: p,
-      lien: lien,
-      video: video
+      facebook: facebook,
+      twitter: twitter,
+      youtube: youtube,
+      instagram: instagram,
+      photo_profil: p1,
+      photo_couverture: p2,
+      website: website,
    });
   }
 
-  modifierArtiste(id, nom, style, description, photo, lien, video) {
+  modifierArtiste(id, nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
     return new Promise((resolve, reject) => {
       const accessToken = localStorage.getItem('accessToken');
       this.http.get<Artiste>(`${url_api}/artistes/${id}`).subscribe(artiste =>{
         let formData = {};
         formData['nom'] = nom;
-        formData['styleMusical'] = style;
+        formData['genre'] = genre;
         formData['description'] = description;
-        formData['photo'] = photo !== '' ? `${url_api}/Containers/artistes/download/${photo}` : artiste.photo;
-        formData['lien'] = lien;
-        formData['video'] = video;
+        formData['facebook'] = facebook;
+        formData['twitter'] = twitter;
+        formData['youtube'] = youtube;
+        formData['instagram'] = instagram;
+        formData['website'] = website;
+        formData['photo_profil'] = photo_profil !== '' ? `${url_api}/Containers/artistes/download/${photo_profil}` : artiste.photo_profil;
+        formData['photo_couverture'] = photo_couverture !== '' ? `${url_api}/Containers/artistes/download/${photo_couverture}` : artiste.photo_couverture;
+        
         this.http.put<Artiste>(`${url_api}/artistes/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));
       });
     });

@@ -14,6 +14,7 @@ import { AuthService } from './services/auth.service';
 import { ArtistesService } from './services/artistes.service';
 import { FileService } from './services/files.service';
 import { PartenairesService } from './services/partenaires.service';
+import { AlbumsService } from './services/albums.service';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -24,6 +25,7 @@ import { VideoComponent } from './components/video/video.component';
 import { ProfilSettingsComponent } from './components/profil-settings/profil-settings.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
 import { EditArtistesComponent } from './components/edit-artistes/edit-artistes.component';
+import { EditAlbumComponent } from './components/edit-albums/edit-albums.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -38,6 +40,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ConnexionComponent,
     AdminComponent,
     VideoComponent,
+    EditAlbumComponent,
     ProfilSettingsComponent,
     PartenairesComponent,
     EditArtistesComponent
@@ -57,6 +60,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
     AuthService,
     ArtistesService,
+    AlbumsService,
     FileService,
     PartenairesService,
     AuthGuard

@@ -21,11 +21,18 @@
     </div>
     <h1>{{ action == 'add' ? 'Ajouter un artiste' : 'Modifier un artiste' }}</h1>
     <input class="input-group-text" type="text" placeholder="Nom" #nom [value]="selectedArtiste.nom ? selectedArtiste.nom : ''" />
-    <input class="input-group-text" type="text" placeholder="Style musical" #style [value]="selectedArtiste.styleMusical ? selectedArtiste.styleMusical : ''" />
+    <input class="input-group-text" type="text" placeholder="Genre" #genre [value]="selectedArtiste.genre ? selectedArtiste.genre : ''" />
     <textarea class="input-group-text" type="text" placeholder="Description" #description [value]="selectedArtiste.description ? selectedArtiste.description : ''"></textarea>
-    <input class="input-group-text" type="text" placeholder="Lien EMBED youtube" #video [value]="selectedArtiste.video ? selectedArtiste.video : ''" />
-    <input class="input-group-text" type="file" name="file" #photo />
-    <input class="input-group-text" type="text" placeholder="Lien facebook / site web / ..." #lien [value]="selectedArtiste.lien ? selectedArtiste.lien : ''" />
-    <button type="submit" form="artiste_form" (click)="action == 'add' ? ajouterArtiste(nom.value, style.value, description.value, photo, lien.value, video.value) : modifierArtiste(nom.value, style.value, description.value, photo, lien.value, video.value)">Valider</button>
+    <input class="input-group-text" type = "text" placeholder="Lien Facebook" #facebook [value] = "selectedArtiste.facebook ? selectedArtiste.facebook : ''">
+    <input class="input-group-text" type = "text" placeholder="Lien Twitter" #twitter [value] = "selectedArtiste.twitter ? selectedArtiste.twitter : ''">
+    <input class="input-group-text" type = "text" placeholder="Lien Youtube" #youtube [value] = "selectedArtiste.youtube ? selectedArtiste.youtube : ''">
+    <input class="input-group-text" type = "text" placeholder="Lien Instagram" #instagram [value] = "selectedArtiste.instagram ? selectedArtiste.instagram: ''">
+    <input class="input-group-text" type = "text" placeholder="Site Web" #website [value] = "selectedArtiste.website ? selectedArtiste.website: ''">
+    <label for="photo_prof">Photo de profil</label>
+    <input id="photo_prof" class="input-group-text" type="file" name="file" #photo_profil />
+    <label for="photo_couv">Photo de couverture</label>
+    <input id="photo_couv" class="input-group-text" type="file" name="file" #photo_couverture />
+    
+    <button type="submit" form="artiste_form" (click)="action == 'add' ? ajouterArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture) : modifierArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture)">Valider</button>
   </div>
 </div>

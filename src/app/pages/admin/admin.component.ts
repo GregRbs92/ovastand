@@ -19,9 +19,6 @@ export class AdminComponent implements OnInit {
   artistes: Artiste[];
   accessToken: string = localStorage.getItem('accessToken');
   formUrl: string = `${url_api}/Containers/media/upload?access_token=${this.accessToken}`;
-  afficheUrl: string;
-  videoUrl: string;
-  videoPoster: string = '';
   videos = [];
   colors: {main_color: string, second_color: string} = {main_color: '', second_color: ''};
 
@@ -39,15 +36,6 @@ export class AdminComponent implements OnInit {
     this.fs.getAssets().subscribe(data => {
       data.forEach(f => {
         switch (f.name) {
-          case 'affiche':
-            this.afficheUrl = `${url_api}/Containers/media/download/${f.url}`;
-            break;
-          case 'video':
-            this.videoUrl = `${url_api}/Containers/media/download/${f.url}`;
-            break;
-          case 'videoPoster':
-            this.videoPoster = `${url_api}/Containers/media/download/${f.url}`;
-            break;
           case 'videos':
             this.videos = JSON.parse(f.url);
             break;
@@ -62,15 +50,6 @@ export class AdminComponent implements OnInit {
     this.option = page;
   }
 
-  onAfficheSubmit(e) {
-    e.preventDefault();
-    const file = e.target[0].files[0];
-    this.fs.uploadAffiche(file).subscribe(success => {
-      this.fs.setAffiche(file.name).subscribe(res => {
-        this.afficheUrl = `${url_api}/Containers/media/download/${file.name}`;
-      });
-    });
-  }
 
   onVideoSubmit(e) {
     const fileName = e.target[0].files[0].name;

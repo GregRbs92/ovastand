@@ -38,12 +38,17 @@ export class EditArtistesComponent {
     });
   }
 
-  ajouterArtiste(nom, style, description, photo, lien, video) {
-    let p = photo.files[0] ? photo.files[0].name : '';
-    if (p) {
-      this.artisteProvider.uploadAffiche(photo.files[0]).subscribe();
+  ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
+    let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
+    let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
+    if (p1) {
+      this.artisteProvider.uploadAffiche(photo_profil.files[0]).subscribe();
+      
     }
-    this.artisteProvider.ajouterArtiste(nom, style, description, p, lien, video).subscribe((artiste) => {
+    if (p2) {
+      this.artisteProvider.uploadAffiche(photo_couverture.files[0]).subscribe();
+    }
+    this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2).subscribe((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
         this.artistes = data;
@@ -51,12 +56,16 @@ export class EditArtistesComponent {
     });
   }
 
-  modifierArtiste(nom, style, description, photo, lien, video) {
-    let p = photo.files[0] ? photo.files[0].name : '';
-    if (p) {
-      this.artisteProvider.uploadAffiche(photo.files[0]).subscribe();
+  modifierArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
+    let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
+    let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
+    if (p1) {
+      this.artisteProvider.uploadAffiche(photo_profil.files[0]).subscribe();
     }
-    this.artisteProvider.modifierArtiste(this.selectedArtiste.id, nom, style, description, p, lien, video).then((artiste) => {
+    if (p2) {
+      this.artisteProvider.uploadAffiche(photo_couverture.files[0]).subscribe();
+    }
+    this.artisteProvider.modifierArtiste(this.selectedArtiste.id, nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2).then((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
         this.artistes = data;

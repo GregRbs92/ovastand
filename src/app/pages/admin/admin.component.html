@@ -2,55 +2,12 @@
 
   <div id="options">
     <a (click)="setOption(1)" [class.active]="option == 1">Artistes</a>
-    <a (click)="setOption(2)" [class.active]="option == 2">Affiche</a>
-    <a (click)="setOption(3)" [class.active]="option == 3">Vidéo</a>
     <a (click)="setOption(4)" [class.active]="option == 4">Vidéos</a>
     <a (click)="setOption(5)" [class.active]="option == 5">Réglages</a>
     <a (click)="setOption(6)" [class.active]="option == 6">Partenaires</a>
   </div>
 
   <edit-artistes [artistes]="artistes" *ngSwitchCase="1"></edit-artistes>
-
-  <div id="update-affiche" *ngSwitchCase="2">
-    <div>
-      <img src="{{ afficheUrl }}" alt="Affiche">
-    </div>
-    <div>
-      <form action="{{ formUrl }}" method="POST" enctype="multipart/form-data" target="_blank" (submit)="onAfficheSubmit($event)">
-        <h1>Modifier l'affiche</h1>
-        <input name="file" type="file">
-        <input type="submit" value="Modifier">
-      </form>
-    </div>
-  </div>
-
-  <div id="update-video" *ngSwitchCase="3">
-    <div class="video">
-      <div>
-        <app-video src="{{ videoUrl }}" [poster]="videoPoster"></app-video>
-      </div>
-      <div>
-        <form action="{{ formUrl }}" method="POST" enctype="multipart/form-data" target="_blank" (submit)="onVideoSubmit($event)">
-          <h1>Modifier la vidéo</h1>
-          <input name="file" type="file">
-          <input type="submit" value="Modifier">
-        </form>
-      </div>
-    </div>
-    <hr>
-    <div class="poster">
-      <div>
-        <img [src]="videoPoster" alt="Poster vidéo">
-      </div>
-      <div>
-          <div>
-            <h1>Modifier l'affiche de la vidéo</h1>
-            <input name="file" type="file" #file>
-            <input type="submit" value="Modifier" (click)="onChangeVideoPoster(file.files[0])">
-          </div>
-        </div>
-    </div>
-  </div>
 
   <div id="update-videos" *ngSwitchCase="4">
     <div class="video" *ngFor="let v of videos; let i = index">
