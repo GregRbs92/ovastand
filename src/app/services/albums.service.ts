@@ -24,12 +24,6 @@ export class AlbumsService {
 
   ajouterAlbum(nom, artiste, tracklist, prix, photos, deezer, spotify, itunes) {
     const accessToken = localStorage.getItem('accessToken');
-    let listPhotos:string[];
-    photos.forEach(photo => {
-      let url = `${url_api}/Containers/albums/download/${photo}`;
-      listPhotos.push(url);
-    });
-    
 
     return this.http.post<Album>(`${url_api}/albums?access_token=${accessToken}`, {
       nom: nom,
@@ -39,18 +33,13 @@ export class AlbumsService {
       deezer: deezer,
       spotify: spotify,
       itunes: itunes,
-      photos: listPhotos,
+      photos: photos,
 
 
    });
   }
 
   modifierAlbum(id, nom, artiste, tracklist, prix, photos, deezer, spotify, itunes) {
-    let listPhotos:string[];
-    photos.forEach(photo => {
-      let url = `${url_api}/Containers/albums/download/${photo}`;
-      listPhotos.push(url);
-    });
 
     return new Promise((resolve, reject) => {
       const accessToken = localStorage.getItem('accessToken');
@@ -62,7 +51,7 @@ export class AlbumsService {
         formData['deezer'] = deezer;
         formData['spotify'] = spotify;
         formData['itunes'] = itunes;
-        formData['listPhotos'] = listPhotos;
+        formData['listPhotos'] = photos;
         
         
         this.http.put<Album>(`${url_api}/albums/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));
@@ -70,7 +59,7 @@ export class AlbumsService {
     });
   }
 
-  uploadAffiche(file: File) {
+  uploadPhoto(file: File) {
     const accessToken = localStorage.getItem('accessToken');
     let formData = new FormData();
     formData.set('file', file, file.name);

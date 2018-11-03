@@ -1,14 +1,13 @@
 <div id="liste-artistes">
   <div class="artiste" *ngFor="let a of artistes">
-    <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo +')'"></div>
+    <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
     <div class="artiste-caption">
-      <h3 class="nom">{{ a.nom }}</h3>
-      <p class="style">{{ a.styleMusical }}</p>
+      <h3 class="nom">{{ a.nom }} - {{ a.genre }}</h3>
       <button class="btn btn-primary" (click)="toggleModal(a, 'update')">Modifier</button>
       <button class="btn btn-danger" (click)="deleteArtiste(a.id)">Supprimer</button>
     </div>
   </div>
-  <div id="add-box" class="artiste" (click)="toggleModal(-1, 'add')">
+  <div id="add-artiste-box" class="artiste" (click)="toggleModal(-1, 'add')">
     <i class="fa fa-plus"></i>
   </div>
 </div>

@@ -53,15 +53,15 @@ export class ArtistesService {
         formData['youtube'] = youtube;
         formData['instagram'] = instagram;
         formData['website'] = website;
-        formData['photo_profil'] = photo_profil !== '' ? `${url_api}/Containers/artistes/download/${photo_profil}` : artiste.photo_profil;
-        formData['photo_couverture'] = photo_couverture !== '' ? `${url_api}/Containers/artistes/download/${photo_couverture}` : artiste.photo_couverture;
+        formData['photo_profil'] = photo_profil;
+        formData['photo_couverture'] = photo_couverture; 
         
         this.http.put<Artiste>(`${url_api}/artistes/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));
       });
     });
   }
 
-  uploadAffiche(file: File) {
+  uploadPhoto(file: File) {
     const accessToken = localStorage.getItem('accessToken');
     let formData = new FormData();
     formData.set('file', file, file.name);

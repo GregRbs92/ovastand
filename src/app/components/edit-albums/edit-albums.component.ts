@@ -1,4 +1,4 @@
-import { Component, Input, Sanitizer } from '@angular/core';
+import { Component, Input, Sanitizer, ANALYZE_FOR_ENTRY_COMPONENTS } from '@angular/core';
 import * as $ from 'jquery';
 import { Album } from '../../interfaces/album';
 import { AlbumsService } from '../../services/albums.service';
@@ -14,6 +14,7 @@ export class EditAlbumComponent {
 
   @Input()
   albums: Album[];
+  
 
   showModal: boolean = false;
   selectedAlbum: Album;
@@ -22,7 +23,8 @@ export class EditAlbumComponent {
   form_url: string = url_api + '/Containers/albums/upload?access_token=' + this.accessToken;
 
   constructor(private albumProvider: AlbumsService) {
-   }
+
+  }
 
   toggleModal(album, action) {
     this.action = action;
@@ -40,15 +42,22 @@ export class EditAlbumComponent {
 
   ajouterAlbum(nom, artiste, tracklist, prix, photos, deezer, spotify, itunes) {
     
+    let listPhotos: string[] = new Array(photos.files.length);
 
-    let listPhotos:string[];
-    photos.forEach(photo => {
-      let url = `${url_api}/Containers/albums/download/${photo}`;
-      listPhotos.push(url);
-      this.albumProvider.uploadAffiche(photo).subscribe();
-    });
+    for (let j = 0; j < photos.files.length; j++) {
+      let photo = photos.files[j].name;
+      let url = `${url_api}/Containers/download/albums/${photo}`;
+      listPhotos[j]=url;
 
-    this.albumProvider.ajouterAlbum(nom, artiste, tracklist, prix, photos, deezer, spotify, itunes).subscribe((artiste) => {
+      this.albumProvider.uploadPhoto(photos.files[j]).subscribe();
+      
+    }
+    
+    let listTracks: string[]  =new Array();
+    listTracks = tracklist.split("\n");
+
+    
+    this.albumProvider.ajouterAlbum(nom, artiste, listTracks, prix, listPhotos, deezer, spotify, itunes).subscribe((artiste) => {
       this.showModal = false;
       this.albumProvider.getAlbums().subscribe(data => {
         this.albums = data;
@@ -57,14 +66,21 @@ export class EditAlbumComponent {
   }
 
   modifierAlbum(nom, artiste, tracklist, prix, photos, deezer, spotify, itunes) {
-    let listPhotos:string[];
-    photos.forEach(photo => {
+    let listPhotos: string[] = new Array(photos.files.length);
+
+    
+    for (let j = 0; j < photos.files.length; j++) {
+      let photo = photos.files[j].name;
       let url = `${url_api}/Containers/albums/download/${photo}`;
       listPhotos.push(url);
-      this.albumProvider.uploadAffiche(photo).subscribe();
-    });
-    
-    this.albumProvider.modifierAlbum(this.selectedAlbum.id, nom, artiste, tracklist, prix, photos, deezer, spotify, itunes).then((artiste) => {
+      this.albumProvider.uploadPhoto(photo.files[j]).subscribe();
+      
+    }
+
+    let listTracks: string[]  =new Array();
+    listTracks = tracklist.split("\n");
+
+    this.albumProvider.modifierAlbum(this.selectedAlbum.id, nom, artiste, listTracks, prix, listPhotos, deezer, spotify, itunes).then((artiste) => {
       this.showModal = false;
       this.albumProvider.getAlbums().subscribe(data => {
         this.albums = data;

@@ -2,12 +2,16 @@
 
   <div id="options">
     <a (click)="setOption(1)" [class.active]="option == 1">Artistes</a>
+    <a (click)="setOption(2)" [class.active]="option == 2">Albums</a>
     <a (click)="setOption(4)" [class.active]="option == 4">Vidéos</a>
     <a (click)="setOption(5)" [class.active]="option == 5">Réglages</a>
     <a (click)="setOption(6)" [class.active]="option == 6">Partenaires</a>
+  
   </div>
 
   <edit-artistes [artistes]="artistes" *ngSwitchCase="1"></edit-artistes>
+
+  <edit-albums [albums]="albums" *ngSwitchCase="2"></edit-albums>
 
   <div id="update-videos" *ngSwitchCase="4">
     <div class="video" *ngFor="let v of videos; let i = index">

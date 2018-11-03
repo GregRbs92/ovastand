@@ -22,6 +22,7 @@ export class EditArtistesComponent {
   form_url: string = url_api + '/Containers/artistes/upload?access_token=' + this.accessToken;
 
   constructor(private artisteProvider: ArtistesService) {
+
    }
 
   toggleModal(artiste, action) {
@@ -42,11 +43,11 @@ export class EditArtistesComponent {
     let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
     let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
     if (p1) {
-      this.artisteProvider.uploadAffiche(photo_profil.files[0]).subscribe();
+      this.artisteProvider.uploadPhoto(photo_profil.files[0]).subscribe();
       
     }
     if (p2) {
-      this.artisteProvider.uploadAffiche(photo_couverture.files[0]).subscribe();
+      this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
     }
     this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2).subscribe((artiste) => {
       this.showModal = false;
@@ -60,10 +61,10 @@ export class EditArtistesComponent {
     let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
     let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
     if (p1) {
-      this.artisteProvider.uploadAffiche(photo_profil.files[0]).subscribe();
+      this.artisteProvider.uploadPhoto(photo_profil.files[0]).subscribe();
     }
     if (p2) {
-      this.artisteProvider.uploadAffiche(photo_couverture.files[0]).subscribe();
+      this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
     }
     this.artisteProvider.modifierArtiste(this.selectedArtiste.id, nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2).then((artiste) => {
       this.showModal = false;

@@ -10,6 +10,9 @@
         <a [ngx-scroll-to]="'#artistes'" title="Artistes">ARTISTES</a>
       </li>
       <li class="nav-item">
+        <a [ngx-scroll-to]="'#albums'" title="Albums">Albums</a>
+      </li>
+      <li class="nav-item">
         <a [ngx-scroll-to]="'#videos'" title="Videos">VIDEOS</a>
       </li>
       <li class="nav-item">
@@ -31,12 +34,12 @@
     </div>
 
     <ng-template #img>
-        <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo +')'"></div>
+        <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
     </ng-template>
     
     <div class="description">
       <perfect-scrollbar>
-        <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closePortfolio()"></i>
+        <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>
         
         <h2 [style.color]="colors['main_color']">{{ artisteFocused.nom }} - {{ artisteFocused.genre }}
           <a *ngIf= "artisteFocused.facebook" href="{{ artisteFocused.facebook }}"> <i class="fab fa-facebook fa-3x"></i>   </a>
@@ -56,10 +59,45 @@
 
   <div id="liste-artistes">
     <div class="artiste" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">
-      <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo +')'"></div>
+      <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
       <div class="artiste-caption">
         <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
         <p class="style">{{ a.styleMusical }}</p>
+      </div>
+    </div>
+    <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
+  </div>
+</section>
+
+<section id="albums" [style.backgroundColor]="colors['second_color']">
+  <h1>ALBUMS</h1>
+  <div class="separator">
+    <span>
+      <i class="fa fa-circle"></i>
+    </span>
+  </div>
+  <div class="portfolio" *ngIf="albumFocused" [@slideDown]="albumFocused">
+    <div class="img-container" [style.backgroundImage]="'url('+ albumFocused.photos[0] +')'"></div>
+    <div class="description">
+      <perfect-scrollbar>
+        <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeAlbumPortfolio()"></i>
+        
+        <h2 [style.color]="colors['main_color']">{{ albumFocused.nom }} - {{ albumFocused.artiste }}
+        </h2> 
+        <hr>
+        <p *ngFor="let t of albumFocused.tracklist"> - {{ t }}</p>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+  <div class="loader" *ngIf="!artistes && !connectionError"><svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
+
+  <div id="liste-albums">
+    <div class="album" (click)="selectAlbum(a)" [ngx-scroll-to]="'#albums'" *ngFor="let a of albums">
+      <div class="album-image" [style.backgroundImage]="'url('+ a.photos[0] +')'"></div>
+      <div class="album-caption">
+        <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
+        <p class="artiste">{{ a.artiste }}</p>
       </div>
     </div>
     <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
@@ -73,7 +111,7 @@
 </section>
 
 
-<div id="partenaires" [style.backgroundColor]="colors['second_color']">
+<div id="partenaires" [style.backgroundColor]="colors['main_color']">
   <h1>PARTENAIRES</h1>
   <div class="separator">
     <span>
