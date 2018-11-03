@@ -63,7 +63,7 @@ export class AlbumsService {
     const accessToken = localStorage.getItem('accessToken');
     let formData = new FormData();
     formData.set('file', file, file.name);
-    return this.http.post(`${url_api}/Containers/albums/upload?access_token=${accessToken}`, formData);
+    return this.http.post(`${url_api}/containers/albums/upload?access_token=${accessToken}`, formData);
   }
 
 }

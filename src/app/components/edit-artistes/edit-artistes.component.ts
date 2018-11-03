@@ -19,7 +19,7 @@ export class EditArtistesComponent {
   selectedArtiste: Artiste;
   action: string;
   accessToken: string = localStorage.getItem('accessToken');
-  form_url: string = url_api + '/Containers/artistes/upload?access_token=' + this.accessToken;
+  form_url: string = url_api + '/containers/artistes/upload?access_token=' + this.accessToken;
 
   constructor(private artisteProvider: ArtistesService) {
 

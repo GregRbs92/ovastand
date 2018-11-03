@@ -24,8 +24,8 @@ export class ArtistesService {
 
   ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
     const accessToken = localStorage.getItem('accessToken');
-    const p1 = `${url_api}/Containers/artistes/download/${photo_profil}`;
-    const p2 = `${url_api}/Containers/artistes/download/${photo_couverture}`;
+    const p1 = `${url_api}/containers/artistes/download/${photo_profil}`;
+    const p2 = `${url_api}/containers/artistes/download/${photo_couverture}`;
     return this.http.post<Artiste>(`${url_api}/artistes?access_token=${accessToken}`, {
       nom: nom,
       genre: genre,
@@ -65,7 +65,7 @@ export class ArtistesService {
     const accessToken = localStorage.getItem('accessToken');
     let formData = new FormData();
     formData.set('file', file, file.name);
-    return this.http.post(`${url_api}/Containers/artistes/upload?access_token=${accessToken}`, formData);
+    return this.http.post(`${url_api}/containers/artistes/upload?access_token=${accessToken}`, formData);
   }
 
 }

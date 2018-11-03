@@ -20,7 +20,7 @@ export class EditAlbumComponent {
   selectedAlbum: Album;
   action: string;
   accessToken: string = localStorage.getItem('accessToken');
-  form_url: string = url_api + '/Containers/albums/upload?access_token=' + this.accessToken;
+  form_url: string = url_api + '/containers/albums/upload?access_token=' + this.accessToken;
 
   constructor(private albumProvider: AlbumsService) {
 
@@ -46,7 +46,7 @@ export class EditAlbumComponent {
 
     for (let j = 0; j < photos.files.length; j++) {
       let photo = photos.files[j].name;
-      let url = `${url_api}/Containers/download/albums/${photo}`;
+      let url = `${url_api}/containers/albums/download/${photo}`;
       listPhotos[j]=url;
 
       this.albumProvider.uploadPhoto(photos.files[j]).subscribe();
@@ -71,7 +71,7 @@ export class EditAlbumComponent {
     
     for (let j = 0; j < photos.files.length; j++) {
       let photo = photos.files[j].name;
-      let url = `${url_api}/Containers/albums/download/${photo}`;
+      let url = `${url_api}/containers/albums/download/${photo}`;
       listPhotos.push(url);
       this.albumProvider.uploadPhoto(photo.files[j]).subscribe();
       
