@@ -34,8 +34,6 @@ export class AdminComponent implements OnInit {
 
     this.albumProvider.getAlbums().subscribe(data => {
       this.albums = data;
-      
-      
     });
 
     this.fs.getColors().subscribe(colors => {

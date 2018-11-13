@@ -21,6 +21,7 @@
     </ul>
   </div>
 </nav>
+
 <section id="artistes" [style.backgroundColor]="colors['main_color']">
   <h1>ARTISTES</h1>
   <div class="separator">
@@ -82,11 +83,18 @@
       <perfect-scrollbar>
         <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeAlbumPortfolio()"></i>
         
-        <h2 [style.color]="colors['main_color']">{{ albumFocused.nom }} - {{ albumFocused.artiste }}
-        </h2> 
+        <h2 [style.color]="colors['main_color']">{{ albumFocused.nom }} - {{ albumFocused.artiste }}</h2> 
         <hr>
-        <p *ngFor="let t of albumFocused.tracklist"> - {{ t }}</p>
-      </perfect-scrollbar>
+        
+       
+        <div class="tracklist" [ngSwitch]="option">
+          <div id="options">
+              <a (click)="setOption(1)" [class.active]="option == 1">Spotify</a>
+              <a (click)="setOption(2)" [class.active]="option == 2">Deezer</a>
+          </div>
+          <iframe class="player" *ngSwitchCase="1" src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3" frameborder="0" allowtransparency="true" allow="encrypted-media" width="100%" height="100%"></iframe>
+          <iframe *ngSwitchCase="2" scrolling="no" frameborder="0" allowTransparency="true" src="https://www.deezer.com/plugins/player?format=classic&autoplay=false&playlist=true&width=700&height=350&color=007FEB&layout=dark&size=medium&type=album&id=119606&app_id=1" width="100%" height="100%"></iframe>        </div>
+        </perfect-scrollbar>
     </div>
   </div>
 

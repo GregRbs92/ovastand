@@ -33,6 +33,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class HomepageComponent implements OnInit {
 
+  option: number = 1;
   hidePortfolio: boolean = null;
   scrolled: boolean = false;
   videos = [];
@@ -110,6 +111,10 @@ export class HomepageComponent implements OnInit {
 
   videoUrlSanitized(url){
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  setOption(page: number) {
+    this.option = page;
   }
 
 }
