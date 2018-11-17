@@ -13,7 +13,10 @@
         <a [ngx-scroll-to]="'#albums'" title="Albums">Albums</a>
       </li>
       <li class="nav-item">
-        <a [ngx-scroll-to]="'#videos'" title="Videos">VIDEOS</a>
+        <a [ngx-scroll-to]="'#equipe'" title="Equipe">Equipe</a>
+      </li>
+      <li class="nav-item">
+        <a [ngx-scroll-to]="'#collabs'" title="Videos">VIDEOS</a>
       </li>
       <li class="nav-item">
         <a [ngx-scroll-to]="'#partenaires'" title="Partenaires">PARTENAIRES</a>
@@ -112,6 +115,28 @@
   </div>
 </section>
 
+<section id="collabs" [style.backgroundColor]="colors['main_color']">
+  <h1>Equipe</h1>
+  <div class="separator">
+    <span>
+      <i class="fa fa-circle"></i>
+    </span>
+  </div>
+
+  <div class="loader" *ngIf="!collabs && !connectionError"><svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
+
+  <div id="liste-collabs">
+    <div class="collab" [ngx-scroll-to]="'#collabs'" *ngFor="let c of collabs">
+      <div class="collab-image" [style.backgroundImage]="'url('+ c.photo +')'"></div>
+      <div class="collab-caption">
+        <h3 class="nom" [style.color]="colors['main_color']">{{ c.nom }} - {{ c.fonction }}</h3>
+        <p class="nom">{{ c.email }}</p>
+      </div>
+    </div>
+    <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
+  </div>
+</section>
+
 <section id="videos" [style.backgroundColor]="colors['second_color']">
   <div class="video" *ngFor="let v of videos">
       <iframe class="video-unit" [src]="videoUrlSanitized(v)" allowfullscreen></iframe>
@@ -119,7 +144,7 @@
 </section>
 
 
-<div id="partenaires" [style.backgroundColor]="colors['main_color']">
+<div id="partenaires" [style.backgroundColor]="colors['second_color']">
   <h1>PARTENAIRES</h1>
   <div class="separator">
     <span>

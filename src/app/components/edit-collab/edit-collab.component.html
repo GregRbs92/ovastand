@@ -1,0 +1,30 @@
+<div id="liste-collabs">
+        <div class="collab" *ngFor="let c of collabs">
+          <div class="collab-image" [style.backgroundImage]="'url('+ c.photo +')'"></div>
+          <div class="collab-caption">
+            <h3 class="nom">{{ c.nom }} - {{ c.fonction }}</h3>
+            <button class="btn btn-primary" (click)="toggleModal(c, 'update')">Modifier</button>
+            <button class="btn btn-danger" (click)="deleteCollab(c.id)">Supprimer</button>
+          </div>
+        </div>
+        <div id="add-collab-box" class="collab" (click)="toggleModal(-1, 'add')">
+          <i class="fa fa-plus"></i>
+        </div>
+      </div>
+      
+      
+      <div id="modal" *ngIf="showModal">
+        <div>
+          <div class="close" (click)="toggleModal(-1, '')">
+            <i class="fa fa-times"></i>
+          </div>
+          <h1>{{ action == 'add' ? 'Ajouter un membre' : 'Modifier un membre' }}</h1>
+          <input class="input-group-text" type="text" placeholder="Nom" #nom [value]="selectedCollab.nom ? selectedCollab.nom : ''" />
+          <input class="input-group-text" type="text" placeholder="Fonction" #fonction [value]="selectedCollab.fonction ? selectedCollab.fonction : ''" />
+          <textarea class="input-group-text" type="text" placeholder="Email" #email [value]="selectedCollab.email ? selectedCollab.email : ''"></textarea>
+          <label for="photo">Photo</label>
+          <input id="photo" class="input-group-text" type="file" name="file" #photo />
+          
+          <button type="submit" form="artiste_form" (click)="action == 'add' ? ajouterCollab(nom.value, fonction.value, email.value, photo) : modifierCollab(nom.value, fonction.value, email.value, photo)">Valider</button>
+        </div>
+      </div>

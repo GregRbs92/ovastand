@@ -3,9 +3,11 @@ import * as $ from 'jquery';
 import { HttpClient } from '@angular/common/http';
 import { Artiste } from '../../interfaces/artiste';
 import { Album } from '../../interfaces/album';
+import { Collaborateur } from '../../interfaces/collaborateur';
 import { url_api } from '../../../environments/environment';
 import { ArtistesService } from '../../services/artistes.service';
 import { AlbumsService } from '../../services/albums.service';
+import { CollaborateursService } from '../../services/collaborateurs.service';
 import { FileService } from '../../services/files.service';
 import { VideoComponent } from '../../components/video/video.component';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -20,12 +22,13 @@ export class AdminComponent implements OnInit {
   option: number = 1;
   artistes: Artiste[];
   albums: Album[];
+  collabs: Collaborateur[];
   accessToken: string = localStorage.getItem('accessToken');
 
   videos = [];
   colors: {main_color: string, second_color: string} = {main_color: '', second_color: ''};
 
-  constructor(private http: HttpClient, private artisteProvider: ArtistesService,private albumProvider: AlbumsService, private fs: FileService, private sanitizer: DomSanitizer) { }
+  constructor(private http: HttpClient, private collabProvider: CollaborateursService, private artisteProvider: ArtistesService,private albumProvider: AlbumsService, private fs: FileService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.artisteProvider.getArtistes().subscribe(data => {
@@ -34,6 +37,10 @@ export class AdminComponent implements OnInit {
 
     this.albumProvider.getAlbums().subscribe(data => {
       this.albums = data;
+    });
+
+    this.collabProvider.getCollabs().subscribe(data=> {
+      this.collabs = data;
     });
 
     this.fs.getColors().subscribe(colors => {

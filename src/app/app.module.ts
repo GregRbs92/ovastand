@@ -15,6 +15,8 @@ import { ArtistesService } from './services/artistes.service';
 import { FileService } from './services/files.service';
 import { PartenairesService } from './services/partenaires.service';
 import { AlbumsService } from './services/albums.service';
+import { CollaborateursService } from './services/collaborateurs.service';
+
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -26,6 +28,7 @@ import { ProfilSettingsComponent } from './components/profil-settings/profil-set
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
 import { EditArtistesComponent } from './components/edit-artistes/edit-artistes.component';
 import { EditAlbumComponent } from './components/edit-albums/edit-albums.component';
+import { EditCollabComponent } from './components/edit-collab/edit-collab.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -43,7 +46,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditAlbumComponent,
     ProfilSettingsComponent,
     PartenairesComponent,
-    EditArtistesComponent
+    EditArtistesComponent,
+    EditCollabComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AlbumsService,
     FileService,
     PartenairesService,
-    AuthGuard
+    AuthGuard,
+    CollaborateursService
   ],
   bootstrap: [AppComponent]
 })

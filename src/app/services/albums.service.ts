@@ -17,8 +17,20 @@ export class AlbumsService {
     return this.http.get<Album[]>(`${url_api}/albums`);
   }
 
+  getAlbum(id){
+    return this.http.get<Album>(`${url_api}/albums/${id}`); 
+  }
+  
   deleteAlbum(id) {
     const accessToken = localStorage.getItem('accessToken');
+    var album: Album; 
+    this.getAlbum(id).subscribe(data => { 
+      album = data
+      album.photos.forEach(p => {
+        var photo = p.split("/")[7];
+        this.deletePhoto(photo);
+      });
+    });
     return this.http.delete(`${url_api}/albums/${id}?access_token=${accessToken}`);
   }
 
@@ -64,6 +76,11 @@ export class AlbumsService {
     let formData = new FormData();
     formData.set('file', file, file.name);
     return this.http.post(`${url_api}/containers/albums/upload?access_token=${accessToken}`, formData);
+  }
+
+  deletePhoto(photo: string){
+    const accessToken = localStorage.getItem('accessToken');
+    return this.http.delete(`${url_api}/Containers/albums/files/${photo}?access_token=${accessToken}`).subscribe();
   }
 
 }

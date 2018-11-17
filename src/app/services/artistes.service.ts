@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -7,6 +7,8 @@ import 'rxjs/add/observable/throw';
 import { url_api } from '../../environments/environment';
 import { LoginResponse } from '../interfaces/login-response';
 import { Artiste } from '../interfaces/artiste';
+
+
 
 @Injectable()
 export class ArtistesService {
@@ -17,9 +19,24 @@ export class ArtistesService {
     return this.http.get<Artiste[]>(`${url_api}/artistes`);
   }
 
+  getArtiste(id) {
+    return this.http.get<Artiste>(`${url_api}/artistes/${id}`);
+  }
+
   deleteArtiste(id) {
     const accessToken = localStorage.getItem('accessToken');
+    var artiste: Artiste; 
+    this.getArtiste(id).subscribe(data => { 
+      artiste = data
+      var photo_prof = artiste.photo_profil.split("/")[7];
+      var photo_couv = artiste.photo_couverture.split("/")[7];
+      this.deletePhoto(photo_prof);
+      this.deletePhoto(photo_couv);
+    });
+    
+
     return this.http.delete(`${url_api}/artistes/${id}?access_token=${accessToken}`);
+    
   }
 
   ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
@@ -67,5 +84,11 @@ export class ArtistesService {
     formData.set('file', file, file.name);
     return this.http.post(`${url_api}/containers/artistes/upload?access_token=${accessToken}`, formData);
   }
+
+  deletePhoto(photo: string){
+    const accessToken = localStorage.getItem('accessToken');
+    return this.http.delete(`${url_api}/Containers/artistes/files/${photo}?access_token=${accessToken}`).subscribe();
+  }
+
 
 }
