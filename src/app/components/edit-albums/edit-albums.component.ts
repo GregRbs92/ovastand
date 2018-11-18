@@ -56,7 +56,6 @@ export class EditAlbumComponent {
     let listTracks: string[]  =new Array();
     listTracks = tracklist.split("\n");
 
-    
     this.albumProvider.ajouterAlbum(nom, artiste, listTracks, prix, listPhotos, deezer, spotify, itunes).subscribe((artiste) => {
       this.showModal = false;
       this.albumProvider.getAlbums().subscribe(data => {
@@ -68,12 +67,11 @@ export class EditAlbumComponent {
   modifierAlbum(nom, artiste, tracklist, prix, photos, deezer, spotify, itunes) {
     let listPhotos: string[] = new Array(photos.files.length);
 
-    
     for (let j = 0; j < photos.files.length; j++) {
       let photo = photos.files[j].name;
       let url = `${url_api}/containers/albums/download/${photo}`;
-      listPhotos.push(url);
-      this.albumProvider.uploadPhoto(photo.files[j]).subscribe();
+      listPhotos[j] = url;
+      this.albumProvider.uploadPhoto(photos.files[j]).subscribe();
       
     }
 

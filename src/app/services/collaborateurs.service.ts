@@ -48,13 +48,28 @@ export class CollaborateursService {
 
     return new Promise((resolve, reject) => {
       const accessToken = localStorage.getItem('accessToken');
-      const p = `${url_api}/containers/collaborateurs/download/${photo}`;
+      
+      if(photo){
+        photo = `${url_api}/containers/collaborateurs/download/${photo}`;
+        var collab : Collaborateur;
+        this.getCollab(id).subscribe(data => { 
+          collab = data
+          var photo_prof = collab.photo.split("/")[7];        
+          this.deletePhoto(photo_prof);
+        });
+      }
+      else{
+        this.getCollab(id).subscribe( data => {
+          photo = data.photo;
+        })
+      }
+      
       this.http.get<Collaborateur>(`${url_api}/collaborateurs/${id}`).subscribe(artiste =>{
         let formData = {};
         formData['nom'] = nom;
         formData['fonction'] = fonction;
         formData['email'] = email;
-        formData['photo'] = p;
+        formData['photo'] = photo;
         
         this.http.put<Collaborateur>(`${url_api}/collaborateurs/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));
       });

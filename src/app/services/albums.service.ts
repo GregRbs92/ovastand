@@ -51,19 +51,35 @@ export class AlbumsService {
    });
   }
 
-  modifierAlbum(id, nom, artiste, tracklist, prix, photos, deezer, spotify, itunes) {
+  modifierAlbum(id, nom, art, tracklist, prix, photos, deezer, spotify, itunes) {
 
     return new Promise((resolve, reject) => {
       const accessToken = localStorage.getItem('accessToken');
+      this.getAlbum(id).subscribe(data => {
+        if (photos.length == 0) {
+          photos = data.photos;
+        }
+        else{
+          data.photos.forEach(p => {
+            if (!photos.includes(p)) {
+              var photo = p.split("/")[7];
+              this.deletePhoto(photo);
+            }
+            
+          });
+        }
+      });
+
       this.http.get<Album>(`${url_api}/albums/${id}`).subscribe(artiste =>{
         let formData = {};
         formData['nom'] = nom;
-        formData['artiste'] = artiste;
-        formData['prix'] = prix;
+        formData['artiste'] = art;
+        formData['tracklist'] = tracklist;
+        formData['prix'] = +prix;
+        formData['photos'] = photos;
         formData['deezer'] = deezer;
         formData['spotify'] = spotify;
         formData['itunes'] = itunes;
-        formData['listPhotos'] = photos;
         
         
         this.http.put<Album>(`${url_api}/albums/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));

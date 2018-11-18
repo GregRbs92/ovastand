@@ -60,6 +60,44 @@ export class ArtistesService {
   modifierArtiste(id, nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
     return new Promise((resolve, reject) => {
       const accessToken = localStorage.getItem('accessToken');
+      var p1;
+      var p2;
+      if(photo_profil){
+        p1 = `${url_api}/containers/artistes/download/${photo_profil}`;
+        var artiste : Artiste;
+        this.getArtiste(id).subscribe(data => { 
+          artiste = data
+          if (artiste.photo_couverture != artiste.photo_profil) {
+            var photo_prof = artiste.photo_profil.split("/")[7];        
+          this.deletePhoto(photo_prof);
+          }
+        });
+      }
+      else{
+        this.getArtiste(id).subscribe( data => {
+          p1 = data.photo_profil;
+        });
+      }
+
+      if(photo_couverture){
+        p2 = `${url_api}/containers/artistes/download/${photo_couverture}`;
+        var artiste : Artiste;
+        this.getArtiste(id).subscribe(data => { 
+          artiste = data
+          if (artiste.photo_couverture != artiste.photo_profil) {
+            var photo_couverture = artiste.photo_couverture.split("/")[7];        
+          this.deletePhoto(photo_couverture);
+          }
+        });
+      }
+      else{
+        this.getArtiste(id).subscribe( data => {
+          p2 = data.photo_couverture;
+        });
+      }  
+        
+
+
       this.http.get<Artiste>(`${url_api}/artistes/${id}`).subscribe(artiste =>{
         let formData = {};
         formData['nom'] = nom;
@@ -70,8 +108,8 @@ export class ArtistesService {
         formData['youtube'] = youtube;
         formData['instagram'] = instagram;
         formData['website'] = website;
-        formData['photo_profil'] = photo_profil;
-        formData['photo_couverture'] = photo_couverture; 
+        formData['photo_profil'] = p1;
+        formData['photo_couverture'] = p2; 
         
         this.http.put<Artiste>(`${url_api}/artistes/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));
       });
@@ -89,6 +127,8 @@ export class ArtistesService {
     const accessToken = localStorage.getItem('accessToken');
     return this.http.delete(`${url_api}/Containers/artistes/files/${photo}?access_token=${accessToken}`).subscribe();
   }
+
+
 
 
 }

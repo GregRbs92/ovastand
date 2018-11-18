@@ -44,7 +44,6 @@ export class EditArtistesComponent {
     let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
     if (p1) {
       this.artisteProvider.uploadPhoto(photo_profil.files[0]).subscribe();
-      
     }
     if (p2) {
       this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
