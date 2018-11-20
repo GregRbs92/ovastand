@@ -4,6 +4,7 @@ import { Artiste } from '../../interfaces/artiste';
 import { ArtistesService } from '../../services/artistes.service';
 import { url_api } from '../../../environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'edit-artistes',
@@ -21,7 +22,7 @@ export class EditArtistesComponent {
   accessToken: string = localStorage.getItem('accessToken');
   form_url: string = url_api + '/containers/artistes/upload?access_token=' + this.accessToken;
 
-  constructor(private artisteProvider: ArtistesService) {
+  constructor(private cdr: ChangeDetectorRef,private artisteProvider: ArtistesService) {
 
    }
 
@@ -34,7 +35,7 @@ export class EditArtistesComponent {
   deleteArtiste(idArtiste) {
     this.artisteProvider.deleteArtiste(idArtiste).subscribe(() => {
       this.artisteProvider.getArtistes().subscribe(data => {
-        this.artistes = data;
+        this.artistes = data.sort(this.compareOrder);
       });
     });
   }
@@ -48,10 +49,12 @@ export class EditArtistesComponent {
     if (p2) {
       this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
     }
-    this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2).subscribe((artiste) => {
+
+    var ordre = this.artistes.length + 1;
+    this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2, ordre).subscribe((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
-        this.artistes = data;
+        this.artistes = data.sort(this.compareOrder);
       });
     });
   }
@@ -68,9 +71,49 @@ export class EditArtistesComponent {
     this.artisteProvider.modifierArtiste(this.selectedArtiste.id, nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2).then((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
-        this.artistes = data;
+        this.artistes = data.sort(this.compareOrder);
       });
     });
+  }
+
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  drag(ev) {
+    var id = ev.path[0].childNodes[3].textContent;
+    var ordre = ev.path[0].childNodes[1].textContent;
+    ev.dataTransfer.setData("id", id);
+    ev.dataTransfer.setData("ordre", ordre);
+    
+  }
+
+  drop(ev) {
+    ev.preventDefault();
+    var idDropped = ev.dataTransfer.getData("id");
+    var ordreDropped = ev.dataTransfer.getData("ordre");
+
+    var idDroppedOn = ev.path[1].childNodes[3].textContent;
+    var ordreDroppedOn = ev.path[1].childNodes[1].textContent;
+    
+    this.artisteProvider.setArtisteOrdre(idDropped, ordreDroppedOn);
+    this.artisteProvider.setArtisteOrdre(idDroppedOn, ordreDropped);
+    
+    this.artisteProvider.getArtistes().subscribe(data => {
+      this.artistes = data.sort(this.compareOrder);
+    });
+
+    this.cdr.detectChanges();
+  }
+
+  compareOrder(art1, art2) {
+    if (art1.ordre > art2.ordre) {
+      return 1;
+    }
+    if (art1.ordre < art2.ordre) {
+      return -1;
+    }
+    return 0;
   }
 }
 

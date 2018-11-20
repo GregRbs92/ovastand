@@ -9,5 +9,6 @@ export interface Artiste {
   instagram: string,
   website: string,
   photo_profil: string,
-  photo_couverture: string
+  photo_couverture: string,
+  ordre : number
 }

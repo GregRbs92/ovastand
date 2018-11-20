@@ -1,5 +1,7 @@
 <div id="liste-artistes">
-  <div class="artiste" *ngFor="let a of artistes">
+  <div class="artiste" *ngFor="let a of artistes" draggable="true" (drop)="drop($event)" (dragover)="allowDrop($event)" (dragstart)="drag($event)" >
+    <div class="order" hidden="true">{{a.ordre}}</div>
+    <div class="id" hidden="true">{{a.id}}</div>
     <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
     <div class="artiste-caption">
       <h3 class="nom">{{ a.nom }} - {{ a.genre }}</h3>
@@ -35,3 +37,4 @@
     <button type="submit" form="artiste_form" (click)="action == 'add' ? ajouterArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture) : modifierArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture)">Valider</button>
   </div>
 </div>
+

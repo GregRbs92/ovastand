@@ -32,11 +32,11 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.artisteProvider.getArtistes().subscribe(data => {
-      this.artistes = data;
+      this.artistes = data.sort(this.compareOrder);
     });
 
     this.albumProvider.getAlbums().subscribe(data => {
-      this.albums = data;
+      this.albums = data
     });
 
     this.collabProvider.getCollabs().subscribe(data=> {
@@ -88,6 +88,16 @@ export class AdminComponent implements OnInit {
 
   sanitize(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  compareOrder(art1, art2) {
+    if (art1.ordre > art2.ordre) {
+      return 1;
+    }
+    if (art1.ordre < art2.ordre) {
+      return -1;
+    }
+    return 0;
   }
 
 }

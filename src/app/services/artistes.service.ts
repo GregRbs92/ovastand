@@ -39,10 +39,11 @@ export class ArtistesService {
     
   }
 
-  ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
+  ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, ordre) {
     const accessToken = localStorage.getItem('accessToken');
     const p1 = `${url_api}/containers/artistes/download/${photo_profil}`;
     const p2 = `${url_api}/containers/artistes/download/${photo_couverture}`;
+
     return this.http.post<Artiste>(`${url_api}/artistes?access_token=${accessToken}`, {
       nom: nom,
       genre: genre,
@@ -54,6 +55,7 @@ export class ArtistesService {
       photo_profil: p1,
       photo_couverture: p2,
       website: website,
+      ordre: ordre
    });
   }
 
@@ -128,7 +130,26 @@ export class ArtistesService {
     return this.http.delete(`${url_api}/Containers/artistes/files/${photo}?access_token=${accessToken}`).subscribe();
   }
 
-
-
+  setArtisteOrdre(id: number, ordre: number){
+    return new Promise((resolve, reject) => {
+      const accessToken = localStorage.getItem('accessToken');
+      this.http.get<Artiste>(`${url_api}/artistes/${id}`).subscribe(artiste =>{
+        let formData = {};
+        formData['nom'] = artiste.nom;
+        formData['genre'] = artiste.genre;
+        formData['description'] = artiste.description;
+        formData['facebook'] = artiste.facebook;
+        formData['twitter'] = artiste.twitter;
+        formData['youtube'] = artiste.youtube;
+        formData['instagram'] = artiste.instagram;
+        formData['website'] = artiste.website;
+        formData['photo_profil'] = artiste.photo_profil
+        formData['photo_couverture'] = artiste.photo_couverture; 
+        formData['ordre'] = ordre;
+        
+        this.http.put<Artiste>(`${url_api}/artistes/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));
+      });
+    });
+  }
 
 }
