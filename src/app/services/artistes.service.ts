@@ -32,6 +32,14 @@ export class ArtistesService {
       var photo_couv = artiste.photo_couverture.split("/")[7];
       this.deletePhoto(photo_prof);
       this.deletePhoto(photo_couv);
+
+      var ordre = artiste.ordre;
+      this.getArtistes().subscribe(data => {
+        data = data.filter(artiste => artiste.ordre > ordre);
+        data.forEach(artiste => {
+          this.setArtisteOrdre(artiste.id, artiste.ordre - 1);
+        });
+      })
     });
     
 
@@ -98,8 +106,6 @@ export class ArtistesService {
         });
       }  
         
-
-
       this.http.get<Artiste>(`${url_api}/artistes/${id}`).subscribe(artiste =>{
         let formData = {};
         formData['nom'] = nom;

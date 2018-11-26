@@ -59,7 +59,7 @@ export class HomepageComponent implements OnInit {
     this.artisteProvider.getArtistes().subscribe(data => {
       if(data) {
         this.connectionError = false;
-        this.artistes = data;
+        this.artistes = data.sort(this.compareOrder);
       }
     }, err => {
       console.log(err);
@@ -103,7 +103,7 @@ export class HomepageComponent implements OnInit {
 
   selectArtiste(artiste : Artiste) {
     this.artisteFocused = artiste;
-    //this.descriptionOnFocus = artiste.description.split('\n');
+    this.descriptionOnFocus = artiste.description.split('\n');
   }
 
   selectAlbum(album : Album) {
@@ -122,12 +122,22 @@ export class HomepageComponent implements OnInit {
     this.albumFocused = null;
   }
 
-  videoUrlSanitized(url){
+  sanitizeUrl(url){
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   setOption(page: number) {
     this.option = page;
+  }
+
+  compareOrder(art1, art2) {
+    if (art1.ordre > art2.ordre) {
+      return 1;
+    }
+    if (art1.ordre < art2.ordre) {
+      return -1;
+    }
+    return 0;
   }
 
 }

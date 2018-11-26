@@ -33,20 +33,15 @@
     </span>
   </div>
   <div class="portfolio" *ngIf="artisteFocused" [@slideDown]="artisteFocused">
-    <div *ngIf="artisteFocused.video;else img" class="video-container">
-      <iframe class="video-player" [src]='videoUrlSanitized(artisteFocused.video)'></iframe>
-    </div>
+    <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
 
-    <ng-template #img>
-        <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
-    </ng-template>
-    
     <div class="description">
       <perfect-scrollbar>
         <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>
         
         <h2 [style.color]="colors['main_color']">{{ artisteFocused.nom }} - {{ artisteFocused.genre }}
-          <a *ngIf= "artisteFocused.facebook" href="{{ artisteFocused.facebook }}"> <i class="fab fa-facebook fa-3x"></i>   </a>
+          <hr>
+          <a *ngIf= "artisteFocused.facebook" href="{{ artisteFocused.facebook }}"> <i class="fab fa-facebook fa-3x"></i></a>
           <a *ngIf= "artisteFocused.twitter" href="{{ artisteFocused.twitter }}"> <i class="fab fa-twitter fa-3x"></i>   </a>
           <a *ngIf= "artisteFocused.youtube" href="{{ artisteFocused.youtube }}"> <i class="fab fa-youtube fa-3x"></i>   </a>
           <a *ngIf= "artisteFocused.instagram" href="{{ artisteFocused.instagram }}"> <i class="fab fa-instagram fa-3x"></i>   </a>
@@ -54,7 +49,8 @@
     
         <hr>
         <p *ngFor="let d of descriptionOnFocus">{{ d }}</p>
-        <p><a href="{{ artisteFocused.website }}" target="_blank">{{ artisteFocused.website }}</a></p>
+        <hr>
+        <p><a href="{{ artisteFocused.website }}" target="_blank">Site Web</a></p>
       </perfect-scrollbar>
     </div>
   </div>
@@ -95,8 +91,8 @@
               <a (click)="setOption(1)" [class.active]="option == 1">Spotify</a>
               <a (click)="setOption(2)" [class.active]="option == 2">Deezer</a>
           </div>
-          <iframe class="player" *ngSwitchCase="1" src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3" frameborder="0" allowtransparency="true" allow="encrypted-media" width="100%" height="100%"></iframe>
-          <iframe *ngSwitchCase="2" scrolling="no" frameborder="0" allowTransparency="true" src="https://www.deezer.com/plugins/player?format=classic&autoplay=false&playlist=true&width=700&height=350&color=007FEB&layout=dark&size=medium&type=album&id=119606&app_id=1" width="100%" height="100%"></iframe>        </div>
+          <iframe class="player" *ngSwitchCase="1" [src]='sanitizeUrl(albumFocused.spotify)' frameborder="0" allowtransparency="true" allow="encrypted-media" width="100%" height="100%"></iframe>
+          <iframe *ngSwitchCase="2" scrolling="no" frameborder="0" allowTransparency="true" [src]='sanitizeUrl(albumFocused.deezer)' width="100%" height="100%"></iframe>        </div>
         </perfect-scrollbar>
     </div>
   </div>

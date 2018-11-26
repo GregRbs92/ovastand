@@ -21,7 +21,7 @@
           <h1>{{ action == 'add' ? 'Ajouter un membre' : 'Modifier un membre' }}</h1>
           <input class="input-group-text" type="text" placeholder="Nom" #nom [value]="selectedCollab.nom ? selectedCollab.nom : ''" />
           <input class="input-group-text" type="text" placeholder="Fonction" #fonction [value]="selectedCollab.fonction ? selectedCollab.fonction : ''" />
-          <textarea class="input-group-text" type="text" placeholder="Email" #email [value]="selectedCollab.email ? selectedCollab.email : ''"></textarea>
+          <input class="input-group-text" type="text" placeholder="Email" #email [value]="selectedCollab.email ? selectedCollab.email : ''"/>>
           <label for="photo">Photo</label>
           <input id="photo" class="input-group-text" type="file" name="file" #photo />
           
