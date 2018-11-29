@@ -33,8 +33,10 @@
     <input id="photo_prof" class="input-group-text" type="file" name="file" #photo_profil />
     <label for="photo_couv">Photo de couverture</label>
     <input id="photo_couv" class="input-group-text" type="file" name="file" #photo_couverture />
-    
-    <button type="submit" form="artiste_form" (click)="action == 'add' ? ajouterArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture) : modifierArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture)">Valider</button>
+    <input class="input-group-text" type="text" placeholder="Lien EMBED Youtube 1" #videoUrl1 [value] ="selectedArtiste.videoUrl1 ? selectedArtiste.videoUrl1: ''"  />
+    <input class="input-group-text" type="text" placeholder="Lien EMBED Youtube 2" #videoUrl2 [value]="selectedArtiste.videoUrl2 ? selectedArtiste.videoUrl2: ''" />
+    <textarea class="input-group-text" type="text" placeholder="Tour dates" #tourDates [value] = "selectedArtiste.tourDates ? selectedArtiste.tourDates :''"></textarea>
+    <button type="submit" form="artiste_form" (click)="action == 'add' ? ajouterArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture, videoUrl1.value, videoUrl2.value, tourDates.value) : modifierArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture, videoUrl1.value, videoUrl2.value, tourDates.value )">Valider</button>
   </div>
 </div>
 

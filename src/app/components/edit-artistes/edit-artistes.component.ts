@@ -40,7 +40,7 @@ export class EditArtistesComponent {
     });
   }
 
-  ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
+  ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, urlYt1, urlYt2, tourDates) {
     let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
     let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
     if (p1) {
@@ -49,9 +49,10 @@ export class EditArtistesComponent {
     if (p2) {
       this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
     }
-
+    var tabDates = tourDates.split('\n');
+    
     var ordre = this.artistes.length + 1;
-    this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2, ordre).subscribe((artiste) => {
+    this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2, ordre, urlYt1, urlYt2, tabDates).subscribe((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
         this.artistes = data.sort(this.compareOrder);
@@ -59,7 +60,7 @@ export class EditArtistesComponent {
     });
   }
 
-  modifierArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
+  modifierArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, urlYt1, urlYt2, tabDates) {
     let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
     let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
     if (p1) {
@@ -68,7 +69,7 @@ export class EditArtistesComponent {
     if (p2) {
       this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
     }
-    this.artisteProvider.modifierArtiste(this.selectedArtiste.id, nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2).then((artiste) => {
+    this.artisteProvider.modifierArtiste(this.selectedArtiste.id, nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2, urlYt1, urlYt2, tabDates).then((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
         this.artistes = data.sort(this.compareOrder);
@@ -102,7 +103,7 @@ export class EditArtistesComponent {
     this.artisteProvider.getArtistes().subscribe(data => {
       this.artistes = data.sort(this.compareOrder);
     });
-
+    
     this.cdr.detectChanges();
   }
 

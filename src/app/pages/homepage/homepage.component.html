@@ -1,164 +1,185 @@
-<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-transparent" [ngClass]="{'scrolled': scrolled}">
-  <a class="navbar-brand" href="#"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div id="container">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-transparent" [ngClass]="{'scrolled': scrolled}">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a [ngx-scroll-to]="'#artistes'" title="Artistes">ARTISTES</a>
-      </li>
-      <li class="nav-item">
-        <a [ngx-scroll-to]="'#albums'" title="Albums">Albums</a>
-      </li>
-      <li class="nav-item">
-        <a [ngx-scroll-to]="'#equipe'" title="Equipe">Equipe</a>
-      </li>
-      <li class="nav-item">
-        <a [ngx-scroll-to]="'#collabs'" title="Videos">VIDEOS</a>
-      </li>
-      <li class="nav-item">
-        <a [ngx-scroll-to]="'#partenaires'" title="Partenaires">PARTENAIRES</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a [ngx-scroll-to]="'#artistes'" title="Artistes">ARTISTES</a>
+                </li>
+                <li class="nav-item">
+                    <a [ngx-scroll-to]="'#albums'" title="Albums">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a [ngx-scroll-to]="'#partenaires'" title="Partenaires">PARTENAIRES</a>
+                </li>
+                <li class="nav-item">
+                    <a [ngx-scroll-to]="'#equipe'" title="Equipe">Equipe</a>
+                </li>
 
-<section id="artistes" [style.backgroundColor]="colors['main_color']">
-  <h1>ARTISTES</h1>
-  <div class="separator">
-    <span>
-      <i class="fa fa-circle"></i>
-    </span>
-  </div>
-  <div class="portfolio" *ngIf="artisteFocused" [@slideDown]="artisteFocused">
-    <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
+            </ul>
+        </div>
+    </nav>
 
-    <div class="description">
-      <perfect-scrollbar>
-        <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>
-        
-        <h2 [style.color]="colors['main_color']">{{ artisteFocused.nom }} - {{ artisteFocused.genre }}
-          <hr>
-          <a *ngIf= "artisteFocused.facebook" href="{{ artisteFocused.facebook }}"> <i class="fab fa-facebook fa-3x"></i></a>
-          <a *ngIf= "artisteFocused.twitter" href="{{ artisteFocused.twitter }}"> <i class="fab fa-twitter fa-3x"></i>   </a>
-          <a *ngIf= "artisteFocused.youtube" href="{{ artisteFocused.youtube }}"> <i class="fab fa-youtube fa-3x"></i>   </a>
-          <a *ngIf= "artisteFocused.instagram" href="{{ artisteFocused.instagram }}"> <i class="fab fa-instagram fa-3x"></i>   </a>
-        </h2>
-    
-        <hr>
-        <p *ngFor="let d of descriptionOnFocus">{{ d }}</p>
-        <hr>
-        <p><a href="{{ artisteFocused.website }}" target="_blank">Site Web</a></p>
-      </perfect-scrollbar>
+    <section class ="itemContainer" id="artistes">
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <h1>ARTISTES</h1>
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <div class="portfolio" *ngIf="artisteFocused" [@slideDown]="artisteFocused">
+            <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
+
+            <div class="description">
+                <perfect-scrollbar>
+                    <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>
+
+                    <h2 [style.color]="colors['main_color']">
+                        {{ artisteFocused.nom }} - {{ artisteFocused.genre }}
+                        <hr>
+                        <a *ngIf="artisteFocused.facebook" href="{{ artisteFocused.facebook }}"> <i class="fab fa-facebook fa-3x"></i></a>
+                        <a *ngIf="artisteFocused.twitter" href="{{ artisteFocused.twitter }}"> <i class="fab fa-twitter fa-3x"></i>   </a>
+                        <a *ngIf="artisteFocused.youtube" href="{{ artisteFocused.youtube }}"> <i class="fab fa-youtube fa-3x"></i>   </a>
+                        <a *ngIf="artisteFocused.instagram" href="{{ artisteFocused.instagram }}"> <i class="fab fa-instagram fa-3x"></i>   </a>
+                    </h2>
+
+                    <hr>
+                    <p *ngFor="let d of descriptionOnFocus">{{ d }}</p>
+                    <hr>
+                    <p><a href="{{ artisteFocused.website }}" target="_blank">Site Web</a></p>
+                </perfect-scrollbar>
+            </div>
+        </div>
+
+        <div class="loader" *ngIf="!artistes && !connectionError"><svg width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
+
+        <div class="liste-items" id="liste-artistes">
+            <!--<div class="artiste" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">-->
+            <div class="item" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">
+                <div class="item-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
+                <div class="item-caption">
+                    <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
+                    <p class="style">{{ a.styleMusical }}</p>
+                </div>
+            </div>
+            <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
+        </div>
+    </section>
+
+    <section class="itemContainer" id="albums">
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <h1>ALBUMS</h1>
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <div class="portfolio" *ngIf="albumFocused" [@slideDown]="albumFocused">
+            <div class="img-container" [style.backgroundImage]="'url('+ albumFocused.photos[0] +')'"></div>
+            <div class="description">
+                <perfect-scrollbar>
+                    <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeAlbumPortfolio()"></i>
+
+                    <h2 [style.color]="colors['main_color']">{{ albumFocused.nom }} - {{ albumFocused.artiste }} <span class="marge"></span> {{ albumFocused.prix }}€ </h2>
+                    <hr>
+
+
+                    <div class="tracklist" [ngSwitch]="option">
+                        <div id="options">
+                            <a (click)="setOption(1)" [class.active]="option == 1">Spotify</a>
+                            <a (click)="setOption(2)" [class.active]="option == 2">Deezer</a>
+                        </div>
+                        <iframe class="player" *ngSwitchCase="1" [src]='sanitizeUrl(albumFocused.spotify)' frameborder="0" allowtransparency="true" allow="encrypted-media" width="100%" height="100%"></iframe>
+                        <iframe *ngSwitchCase="2" scrolling="no" frameborder="0" allowTransparency="true" [src]='sanitizeUrl(albumFocused.deezer)' width="100%" height="100%"></iframe>
+                    </div>
+                </perfect-scrollbar>
+            </div>
+        </div>
+
+        <div class="loader" *ngIf="!artistes && !connectionError"><svg width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
+
+        <div class="liste-items" id="liste-albums">
+            <div class="item" (click)="selectAlbum(a)" [ngx-scroll-to]="'#albums'" *ngFor="let a of albums">
+                <div class="item-image" [style.backgroundImage]="'url('+ a.photos[0] +')'"></div>
+                <div class="item-caption">
+                    <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
+                    <p class="artiste">{{ a.artiste }}</p>
+                </div>
+            </div>
+            <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
+        </div>
+    </section>
+
+    <section class="itemContainer" id="collabs">
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <h1>Equipe</h1>
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+
+        <div class="loader" *ngIf="!collabs && !connectionError"><svg width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
+
+        <div class="liste-items" id="liste-collabs">
+            <div class="item" [ngx-scroll-to]="'#collabs'" *ngFor="let c of collabs">
+                <div class="item-image" [style.backgroundImage]="'url('+ c.photo +')'"></div>
+                <div class="item-caption">
+                    <h3 class="nom" [style.color]="colors['main_color']">{{ c.nom }} - {{ c.fonction }}</h3>
+                    <p class="nom">{{ c.email }}</p>
+                </div>
+            </div>
+            <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
+        </div>
+    </section>
+
+    <div id="partenaires">
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <h1>PARTENAIRES</h1>
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <div id="partenaires-container">
+            <div class="partenaire" *ngFor="let p of partenaires">
+                <a href="{{ p.url }}">
+                    <img src="{{ p.image }}" alt="{{ p.nom }}">
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="loader" *ngIf="!artistes && !connectionError"><svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
-
-  <div id="liste-artistes">
-    <div class="artiste" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">
-      <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
-      <div class="artiste-caption">
-        <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
-        <p class="style">{{ a.styleMusical }}</p>
-      </div>
-    </div>
-    <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
-  </div>
-</section>
-
-<section id="albums" [style.backgroundColor]="colors['second_color']">
-  <h1>ALBUMS</h1>
-  <div class="separator">
-    <span>
-      <i class="fa fa-circle"></i>
-    </span>
-  </div>
-  <div class="portfolio" *ngIf="albumFocused" [@slideDown]="albumFocused">
-    <div class="img-container" [style.backgroundImage]="'url('+ albumFocused.photos[0] +')'"></div>
-    <div class="description">
-      <perfect-scrollbar>
-        <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeAlbumPortfolio()"></i>
-        
-        <h2 [style.color]="colors['main_color']">{{ albumFocused.nom }} - {{ albumFocused.artiste }} <span class="marge"></span> {{ albumFocused.prix }}€ </h2> 
-        <hr>
-        
-       
-        <div class="tracklist" [ngSwitch]="option">
-          <div id="options">
-              <a (click)="setOption(1)" [class.active]="option == 1">Spotify</a>
-              <a (click)="setOption(2)" [class.active]="option == 2">Deezer</a>
-          </div>
-          <iframe class="player" *ngSwitchCase="1" [src]='sanitizeUrl(albumFocused.spotify)' frameborder="0" allowtransparency="true" allow="encrypted-media" width="100%" height="100%"></iframe>
-          <iframe *ngSwitchCase="2" scrolling="no" frameborder="0" allowTransparency="true" [src]='sanitizeUrl(albumFocused.deezer)' width="100%" height="100%"></iframe>        </div>
-        </perfect-scrollbar>
-    </div>
-  </div>
-
-  <div class="loader" *ngIf="!artistes && !connectionError"><svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
-
-  <div id="liste-albums">
-    <div class="album" (click)="selectAlbum(a)" [ngx-scroll-to]="'#albums'" *ngFor="let a of albums">
-      <div class="album-image" [style.backgroundImage]="'url('+ a.photos[0] +')'"></div>
-      <div class="album-caption">
-        <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
-        <p class="artiste">{{ a.artiste }}</p>
-      </div>
-    </div>
-    <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
-  </div>
-</section>
-
-<section id="collabs" [style.backgroundColor]="colors['main_color']">
-  <h1>Equipe</h1>
-  <div class="separator">
-    <span>
-      <i class="fa fa-circle"></i>
-    </span>
-  </div>
-
-  <div class="loader" *ngIf="!collabs && !connectionError"><svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
-
-  <div id="liste-collabs">
-    <div class="collab" [ngx-scroll-to]="'#collabs'" *ngFor="let c of collabs">
-      <div class="collab-image" [style.backgroundImage]="'url('+ c.photo +')'"></div>
-      <div class="collab-caption">
-        <h3 class="nom" [style.color]="colors['main_color']">{{ c.nom }} - {{ c.fonction }}</h3>
-        <p class="nom">{{ c.email }}</p>
-      </div>
-    </div>
-    <p class="error" *ngIf="connectionError"><i class="fa fa-exclamation-triangle"></i><br />Veuillez vérifier votre connexion internet.</p>
-  </div>
-</section>
-
-<section id="videos" [style.backgroundColor]="colors['second_color']">
-  <div class="video" *ngFor="let v of videos">
-      <iframe class="video-unit" [src]="videoUrlSanitized(v)" allowfullscreen></iframe>
-  </div>
-</section>
 
 
-<div id="partenaires" [style.backgroundColor]="colors['second_color']">
-  <h1>PARTENAIRES</h1>
-  <div class="separator">
-    <span>
-      <i class="fa fa-circle"></i>
-    </span>
-  </div>
-  <div id="partenaires-container">
-    <div class="partenaire" *ngFor="let p of partenaires">
-      <a href="{{ p.url }}">
-        <img src="{{ p.image }}" alt="{{ p.nom }}">
-      </a>
-    </div>
-  </div>
+    <footer [style.backgroundColor]="'#18191b'">
+        <p>Sum  Asso © 2018</p>
+        <p>Design : Florence Trouvat</p>
+        <p>Conception: Grégoire Rabasse &amp; Timothée Babinet</p>
+        <p>Tous droits réservés</p>
+    </footer>
+
 </div>
 
-<footer [style.backgroundColor]="'#18191b'">
-  <p>Sum  Asso © 2018</p>
-  <p>Design : Florence Trouvat</p>
-  <p>Conception: Grégoire Rabasse &amp; Timothée Babinet</p>
-  <p>Tous droits réservés</p>
-</footer>
+
+

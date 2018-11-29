@@ -47,7 +47,7 @@ export class ArtistesService {
     
   }
 
-  ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, ordre) {
+  ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, ordre, urlYt1, urlYt2, tabDates) {
     const accessToken = localStorage.getItem('accessToken');
     const p1 = `${url_api}/containers/artistes/download/${photo_profil}`;
     const p2 = `${url_api}/containers/artistes/download/${photo_couverture}`;
@@ -63,11 +63,14 @@ export class ArtistesService {
       photo_profil: p1,
       photo_couverture: p2,
       website: website,
-      ordre: ordre
+      ordre: ordre,
+      videoUrl1: urlYt1,
+      videoUrl2: urlYt2,
+      tourDates: tabDates
    });
   }
 
-  modifierArtiste(id, nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture) {
+  modifierArtiste(id, nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, urlYt1, urlYt2, tabDates) {
     return new Promise((resolve, reject) => {
       const accessToken = localStorage.getItem('accessToken');
       var p1;
@@ -118,6 +121,9 @@ export class ArtistesService {
         formData['website'] = website;
         formData['photo_profil'] = p1;
         formData['photo_couverture'] = p2; 
+        formData['videoUrl1'] = urlYt1;
+        formData['videoUrl2'] = urlYt2;
+        formData['tourDates'] = tabDates;
         
         this.http.put<Artiste>(`${url_api}/artistes/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));
       });

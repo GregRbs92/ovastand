@@ -129,7 +129,8 @@
   width: 100%;
   height: 100%;
   z-index: 100;
-  display: flex;
+  display:flex;
+  overflow: scroll;
   justify-content: center;
   align-items: center;
   &>div {
@@ -137,8 +138,10 @@
     width: 350px;
     background-color: #ed6f7d;
     box-shadow: 3px 3px 20px #333;
-    padding: 40px;
+    padding: 60px;
+    margin-top: 200px;
     border-radius: 8px;
+
     &>.close {
       position: absolute;
       top: 0;
