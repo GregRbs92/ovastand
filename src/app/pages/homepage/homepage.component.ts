@@ -36,20 +36,25 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class HomepageComponent implements OnInit {
 
-  option: number = 1;
-  hidePortfolio: boolean = null;
-  scrolled: boolean = false;
-  videos = [];
-  artistes: Artiste[];
-  albums: Album[];
-  collabs: Collaborateur[];
-  artisteFocused: Artiste;
-  albumFocused: Album; 
-  collabFocused: Collaborateur;
-  descriptionOnFocus: string[];
-  connectionError: boolean = false;
-  colors: {main_color: string, second_color: string} = {main_color: "#ed6f7d", second_color: "#333"};
-  partenaires: Partenaire[];
+    option: number = 1;
+    hidePortfolio: boolean = null;
+    scrolled: boolean = false;
+    videos = [];
+    artistes: Artiste[];
+    albums: Album[];
+    collabs: Collaborateur[];
+    artisteFocused: Artiste;
+    albumFocused: Album; 
+    collabFocused: Collaborateur;
+    descriptionOnFocus: string[];
+    connectionError: boolean = false;
+    colors: { main_color: string, second_color: string } = {
+        main_color: "#ed6f7d",
+        second_color: "#333"
+    };
+    logo: string = "../../../assets/logo-noir.png";
+
+    partenaires: Partenaire[];
 
   constructor(private http:HttpClient, private collabProvider:CollaborateursService, private artisteProvider:ArtistesService,private albumProvider:AlbumsService, private partenaireProvider: PartenairesService, private fs:FileService, private sanitizer : DomSanitizer) {
   }
@@ -94,10 +99,12 @@ export class HomepageComponent implements OnInit {
   @HostListener('window:scroll')
   onScroll() {
     if(!this.scrolled && window.pageYOffset > 100) {
-      this.scrolled = true;
+        this.scrolled = true;
+        this.logo = "../../../assets/logo.png";
     }
     else if(this.scrolled && window.pageYOffset <= 100) {
-      this.scrolled = false;
+        this.scrolled = false;
+        this.logo = "../../../assets/logo-noir.png";
     }
   }
 

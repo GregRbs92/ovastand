@@ -4,14 +4,16 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <div class="logo-container">
+            <img [src]='logo' />
+        </div>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a [ngx-scroll-to]="'#artistes'" title="Artistes">ARTISTES</a>
+                    <a [ngx-scroll-to]="'#artistes'" title="Booking">Booking</a>
                 </li>
                 <li class="nav-item">
-                    <a [ngx-scroll-to]="'#albums'" title="Albums">Albums</a>
+                    <a [ngx-scroll-to]="'#albums'" title="Label">Label</a>
                 </li>
                 <li class="nav-item">
                     <a [ngx-scroll-to]="'#partenaires'" title="Partenaires">PARTENAIRES</a>
@@ -30,7 +32,7 @@
                 <i class="fa fa-circle"></i>
             </span>
         </div>
-        <h1>ARTISTES</h1>
+        <h1>BOOKING</h1>
         <div class="separator">
             <span>
                 <i class="fa fa-circle"></i>
@@ -81,7 +83,7 @@
                 <i class="fa fa-circle"></i>
             </span>
         </div>
-        <h1>ALBUMS</h1>
+        <h1>LABEL</h1>
         <div class="separator">
             <span>
                 <i class="fa fa-circle"></i>
@@ -123,6 +125,27 @@
         </div>
     </section>
 
+    <div id="partenaires">
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <h1>PARTENAIRES</h1>
+        <div class="separator">
+            <span>
+                <i class="fa fa-circle"></i>
+            </span>
+        </div>
+        <div id="partenaires-container">
+            <div class="partenaire" *ngFor="let p of partenaires">
+                <a href="{{ p.url }}">
+                    <img src="{{ p.image }}" alt="{{ p.nom }}">
+                </a>
+            </div>
+        </div>
+    </div>
+
     <section class="itemContainer" id="collabs">
         <div class="separator">
             <span>
@@ -150,26 +173,7 @@
         </div>
     </section>
 
-    <div id="partenaires">
-        <div class="separator">
-            <span>
-                <i class="fa fa-circle"></i>
-            </span>
-        </div>
-        <h1>PARTENAIRES</h1>
-        <div class="separator">
-            <span>
-                <i class="fa fa-circle"></i>
-            </span>
-        </div>
-        <div id="partenaires-container">
-            <div class="partenaire" *ngFor="let p of partenaires">
-                <a href="{{ p.url }}">
-                    <img src="{{ p.image }}" alt="{{ p.nom }}">
-                </a>
-            </div>
-        </div>
-    </div>
+
 
 
     <footer [style.backgroundColor]="'#18191b'">

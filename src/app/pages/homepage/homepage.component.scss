@@ -19,13 +19,18 @@ nav {
   width: 100%;
   background-color: black;
   text-align: right;
-  padding: 15px;
+  padding: 25px;
   transition: all .2s ease;
 }
 
 nav.scrolled {
   background-color: black !important;
   border-bottom: 1px solid #333;
+  logo-container{
+      background-image: url(../../../assets/logo-noir.png);
+      height:auto;
+      width:auto;
+  }
   .nav-item a{
       color:white;
   }
@@ -36,7 +41,7 @@ nav .navbar-collapse {
 }
 
 nav .nav-item a {
-  font: 400 .83em/3.183em "Raleway", sans-serif;
+  font: 600 1.2em "Raleway", sans-serif;
   letter-spacing: .273em;
   text-transform: uppercase;
   padding: 7px;
