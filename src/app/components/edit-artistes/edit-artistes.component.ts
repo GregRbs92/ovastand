@@ -43,6 +43,7 @@ export class EditArtistesComponent {
   ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, urlYt1, urlYt2, tourDates) {
     let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
     let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
+    var ordre;
     if (p1) {
       this.artisteProvider.uploadPhoto(photo_profil.files[0]).subscribe();
     }
@@ -50,8 +51,12 @@ export class EditArtistesComponent {
       this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
     }
     var tabDates = tourDates.split('\n');
-    
-    var ordre = this.artistes.length + 1;
+
+    if (this.artistes)
+         ordre = this.artistes.length + 1;
+    else
+        ordre = 1;
+
     this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2, ordre, urlYt1, urlYt2, tabDates).subscribe((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
@@ -116,6 +121,11 @@ export class EditArtistesComponent {
       return -1;
     }
     return 0;
+  }
+
+  tabToString(tab) {
+      var r = tab.join('\n');
+      return r;
   }
 }
 

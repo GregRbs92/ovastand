@@ -15,25 +15,41 @@ import { Partenaire } from '../../interfaces/partenaires';
 import { PartenairesService } from '../../services/partenaires.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
+
+
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss'],
-  animations: [
-    trigger('slideDown', [
-      state('void', style({
-        opacity: 0,
-        height: '0px'
-      })),
-      state('*',   style({
-        opacity: 1,
-        height: '400px'
-      })),
-      transition('void => *', animate('500ms ease-in')),
-      transition('* => void', animate('500ms ease-out'))
-    ])
-  ]
+    selector: 'app-homepage',
+    templateUrl: './homepage.component.html',
+    styleUrls: ['./homepage.component.scss'],
+    animations: [
+        trigger('slideDown', [
+            state('void', style({
+                opacity: 0,
+                height: '0px'
+            })),
+            state('*', style({
+                opacity: 1,
+                height: '400px'
+            })),
+            transition('void => *', animate('500ms ease-in')),
+            transition('* => void', animate('500ms ease-out'))
+        ]),
+        trigger('slideDownArtiste', [
+            state('void', style({
+                opacity: 0,
+                height: '0px'
+            })),
+            state('*', style({
+                opacity: 1,
+                height: '800px'
+            })),
+            transition('void => *', animate('500ms ease-in')),
+            transition('* => void', animate('500ms ease-out'))
+        ])
+    ],
+
 })
+
 export class HomepageComponent implements OnInit {
 
     option: number = 1;
@@ -47,11 +63,13 @@ export class HomepageComponent implements OnInit {
     albumFocused: Album; 
     collabFocused: Collaborateur;
     descriptionOnFocus: string[];
+    datesOnFocus: string[];
     connectionError: boolean = false;
     colors: { main_color: string, second_color: string } = {
         main_color: "#ed6f7d",
         second_color: "#333"
     };
+
     logo: string = "../../../assets/logo-noir.png";
 
     partenaires: Partenaire[];
@@ -108,9 +126,10 @@ export class HomepageComponent implements OnInit {
     }
   }
 
-  selectArtiste(artiste : Artiste) {
-    this.artisteFocused = artiste;
-    this.descriptionOnFocus = artiste.description.split('\n');
+  selectArtiste(artiste: Artiste) {
+      this.artisteFocused = artiste;
+      this.descriptionOnFocus = artiste.description.split('\n');
+      //this.datesOnFocus = artiste.tourDates[0].split('\n');
   }
 
   selectAlbum(album : Album) {
@@ -146,7 +165,6 @@ export class HomepageComponent implements OnInit {
     }
     return 0;
   }
-
 }
 
 

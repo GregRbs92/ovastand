@@ -1,7 +1,7 @@
 <div id="liste-artistes">
   <div class="artiste" *ngFor="let a of artistes" draggable="true" (drop)="drop($event)" (dragover)="allowDrop($event)" (dragstart)="drag($event)" >
-    <div class="order" hidden="true">{{a.ordre}}</div>
-    <div class="id" hidden="true">{{a.id}}</div>
+    <div class="order" hidden="hidden">{{a.ordre}}</div>
+    <div class="id" hidden="hidden">{{a.id}}</div>
     <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
     <div class="artiste-caption">
       <h3 class="nom">{{ a.nom }} - {{ a.genre }}</h3>
@@ -35,7 +35,7 @@
     <input id="photo_couv" class="input-group-text" type="file" name="file" #photo_couverture />
     <input class="input-group-text" type="text" placeholder="Lien EMBED Youtube 1" #videoUrl1 [value] ="selectedArtiste.videoUrl1 ? selectedArtiste.videoUrl1: ''"  />
     <input class="input-group-text" type="text" placeholder="Lien EMBED Youtube 2" #videoUrl2 [value]="selectedArtiste.videoUrl2 ? selectedArtiste.videoUrl2: ''" />
-    <textarea class="input-group-text" type="text" placeholder="Tour dates" #tourDates [value] = "selectedArtiste.tourDates ? selectedArtiste.tourDates :''"></textarea>
+    <textarea class="input-group-text" type="text" placeholder="Tour dates" #tourDates [value] = "selectedArtiste.tourDates ? tabToString(selectedArtiste.tourDates) :''"></textarea>
     <button type="submit" form="artiste_form" (click)="action == 'add' ? ajouterArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture, videoUrl1.value, videoUrl2.value, tourDates.value) : modifierArtiste(nom.value, genre.value, description.value, facebook.value, twitter.value, youtube.value, instagram.value, website.value, photo_profil, photo_couverture, videoUrl1.value, videoUrl2.value, tourDates.value )">Valider</button>
   </div>
 </div>

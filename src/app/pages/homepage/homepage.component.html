@@ -38,28 +38,46 @@
                 <i class="fa fa-circle"></i>
             </span>
         </div>
-        <div class="portfolio" *ngIf="artisteFocused" [@slideDown]="artisteFocused">
-            <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
-
-            <div class="description">
-                <perfect-scrollbar>
-                    <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>
-
-                    <h2 [style.color]="colors['main_color']">
-                        {{ artisteFocused.nom }} - {{ artisteFocused.genre }}
-                        <hr>
-                        <a *ngIf="artisteFocused.facebook" href="{{ artisteFocused.facebook }}"> <i class="fab fa-facebook fa-3x"></i></a>
-                        <a *ngIf="artisteFocused.twitter" href="{{ artisteFocused.twitter }}"> <i class="fab fa-twitter fa-3x"></i>   </a>
-                        <a *ngIf="artisteFocused.youtube" href="{{ artisteFocused.youtube }}"> <i class="fab fa-youtube fa-3x"></i>   </a>
-                        <a *ngIf="artisteFocused.instagram" href="{{ artisteFocused.instagram }}"> <i class="fab fa-instagram fa-3x"></i>   </a>
-                    </h2>
-
-                    <hr>
-                    <p *ngFor="let d of descriptionOnFocus">{{ d }}</p>
-                    <hr>
-                    <p><a href="{{ artisteFocused.website }}" target="_blank">Site Web</a></p>
-                </perfect-scrollbar>
+        <div class="portfolio" *ngIf="artisteFocused" [@slideDownArtiste]="artisteFocused">
+            <div class="mediaContainer">
+                <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
+                <div class="video-container">
+                    <iframe [src]='sanitizeUrl(artisteFocused.videoUrl1)' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe [src]='sanitizeUrl(artisteFocused.videoUrl2)' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </div>
+            <div class="textContainer">
+                <div class="description">
+                    <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>
+                    <perfect-scrollbar>
+                        <!--<i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>-->
+
+                        <h2 [style.color]="colors['main_color']">
+                            {{ artisteFocused.nom }}
+                        </h2> 
+                        <h3 [style.color]="colors['main_color']">
+                            {{ artisteFocused.genre }}
+                        </h3>
+                       
+                        
+                            <hr />
+                        <h2 [style.color]="colors['main_color']">
+                            <a *ngIf="artisteFocused.facebook" href="{{ artisteFocused.facebook }}"> <i class="fab fa-facebook fa-3x"></i></a>
+                            <a *ngIf="artisteFocused.twitter" href="{{ artisteFocused.twitter }}"> <i class="fab fa-twitter fa-3x"></i>   </a>
+                            <a *ngIf="artisteFocused.youtube" href="{{ artisteFocused.youtube }}"> <i class="fab fa-youtube fa-3x"></i>   </a>
+                            <a *ngIf="artisteFocused.instagram" href="{{ artisteFocused.instagram }}"> <i class="fab fa-instagram fa-3x"></i>   </a>
+                        </h2>
+
+                        <hr />
+                        <p *ngFor="let d of descriptionOnFocus">{{ d }}</p>
+                        <hr />
+                        <p><a href="{{ artisteFocused.website }}" target="_blank">Site Web</a></p>
+                        <hr />
+                        <h2 [style.color]="colors['main_color']">DATES</h2>
+                        <p *ngFor="let d of artisteFocused.tourDates">{{ d }}</p>
+                    </perfect-scrollbar>
+                </div>
+            </div> 
         </div>
 
         <div class="loader" *ngIf="!artistes && !connectionError"><svg width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
@@ -97,7 +115,6 @@
 
                     <h2 [style.color]="colors['main_color']">{{ albumFocused.nom }} - {{ albumFocused.artiste }} <span class="marge"></span> {{ albumFocused.prix }}€ </h2>
                     <hr>
-
 
                     <div class="tracklist" [ngSwitch]="option">
                         <div id="options">
