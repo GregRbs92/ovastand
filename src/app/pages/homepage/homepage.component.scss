@@ -356,8 +356,8 @@ nav .nav-item:last-child a::after {
   overflow: hidden;
   position: relative;
   height: auto;
-  width: 25%;
-  height: 25vw;
+  width: 12.5%;
+  height: 12.5vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -509,7 +509,7 @@ footer {
   }
 }
 
-@media all and (max-width: 575px) {
+/*@media all and (max-width: 575px) {
   nav {
     background-color: #18191b !important;
     border-bottom: 1px solid #333;
@@ -518,7 +518,7 @@ footer {
   nav .nav-item a::after {
     content: "";
   }
-}
+}*/
 
 @media all and (max-width: 500px) {
   #header {

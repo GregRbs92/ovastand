@@ -15,7 +15,7 @@ export class PartenairesComponent implements OnInit {
 
   partenaires : Partenaire[];
   showModal: boolean = false;
-  idPartenaire : number;
+  selectedPartenaire: Partenaire;
   action : string;
   accessToken: string = localStorage.getItem('accessToken');
   formUrl: string = url_api + `/Containers/partenaires/upload?access_token=${this.accessToken}`;
@@ -31,9 +31,9 @@ export class PartenairesComponent implements OnInit {
     });
   }
 
-  toggleModal(idArtiste, action) {
+  toggleModal(partenaire, action) {
     this.action = action;
-    this.idPartenaire = idArtiste;
+    this.selectedPartenaire = partenaire;
     this.showModal = !this.showModal;
   }
 

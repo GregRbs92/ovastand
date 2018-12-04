@@ -61,7 +61,6 @@ export class HomepageComponent implements OnInit {
     collabs: Collaborateur[];
     artisteFocused: Artiste;
     albumFocused: Album; 
-    collabFocused: Collaborateur;
     descriptionOnFocus: string[];
     datesOnFocus: string[];
     connectionError: boolean = false;
@@ -69,6 +68,7 @@ export class HomepageComponent implements OnInit {
         main_color: "#ed6f7d",
         second_color: "#333"
     };
+    safeYtUrl1, safeYtUrl2, safeSpotifyUrl, safeDeezerUrl: SafeResourceUrl;
 
     logo: string = "../../../assets/logo-noir.png";
 
@@ -97,6 +97,16 @@ export class HomepageComponent implements OnInit {
     }, err => {
       console.log(err);
       this.connectionError = true;
+        });
+
+    this.partenaireProvider.getPartenaire().subscribe(data => {
+        if (data) {
+            this.connectionError = false;
+            this.partenaires = data;
+        }
+    }, err => {
+        console.log(err);
+        this.connectionError = true;
     });
 
     this.collabProvider.getCollabs().subscribe(data => {
@@ -129,15 +139,14 @@ export class HomepageComponent implements OnInit {
   selectArtiste(artiste: Artiste) {
       this.artisteFocused = artiste;
       this.descriptionOnFocus = artiste.description.split('\n');
-      //this.datesOnFocus = artiste.tourDates[0].split('\n');
+      this.safeYtUrl1 = this.sanitizeUrl(artiste.videoUrl1);
+      this.safeYtUrl2 = this.sanitizeUrl(artiste.videoUrl2);
   }
 
   selectAlbum(album : Album) {
-    this.albumFocused = album;
-  }
-
-  selectCollab(collab: Collaborateur) {
-    this.collabFocused = collab;
+      this.albumFocused = album;
+      this.safeSpotifyUrl = this.sanitizeUrl(album.spotify);
+      this.safeDeezerUrl = this.sanitizeUrl(album.deezer);
   }
 
   closeArtistePortfolio(){

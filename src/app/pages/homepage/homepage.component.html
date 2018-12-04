@@ -42,8 +42,8 @@
             <div class="mediaContainer">
                 <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
                 <div class="video-container">
-                    <iframe [src]='sanitizeUrl(artisteFocused.videoUrl1)' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <iframe [src]='sanitizeUrl(artisteFocused.videoUrl2)' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe [src]='safeYtUrl1' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe [src]='safeYtUrl2' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="textContainer">
@@ -121,8 +121,8 @@
                             <a (click)="setOption(1)" [class.active]="option == 1">Spotify</a>
                             <a (click)="setOption(2)" [class.active]="option == 2">Deezer</a>
                         </div>
-                        <iframe class="player" *ngSwitchCase="1" [src]='sanitizeUrl(albumFocused.spotify)' frameborder="0" allowtransparency="true" allow="encrypted-media" width="100%" height="100%"></iframe>
-                        <iframe *ngSwitchCase="2" scrolling="no" frameborder="0" allowTransparency="true" [src]='sanitizeUrl(albumFocused.deezer)' width="100%" height="100%"></iframe>
+                        <iframe class="player" *ngSwitchCase="1" [src]='safeSpotifyUrl' frameborder="0" allowtransparency="true" allow="encrypted-media" width="100%" height="100%"></iframe>
+                        <iframe *ngSwitchCase="2" scrolling="no" frameborder="0" allowTransparency="true" [src]='safeDeezerUrl' width="100%" height="100%"></iframe>
                     </div>
                 </perfect-scrollbar>
             </div>
@@ -142,7 +142,8 @@
         </div>
     </section>
 
-    <div id="partenaires">
+
+    <div class="itemContainer" id="partenaires">
         <div class="separator">
             <span>
                 <i class="fa fa-circle"></i>
@@ -154,10 +155,13 @@
                 <i class="fa fa-circle"></i>
             </span>
         </div>
+
+        <div class="loader" *ngIf="!partenaires && !connectionError"><svg width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;"><path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path></svg></div>
+
         <div id="partenaires-container">
             <div class="partenaire" *ngFor="let p of partenaires">
                 <a href="{{ p.url }}">
-                    <img src="{{ p.image }}" alt="{{ p.nom }}">
+                    <img src="{{ p.logo }}" title="{{ p.nom }}">
                 </a>
             </div>
         </div>

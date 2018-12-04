@@ -4,9 +4,9 @@
     <a (click)="setOption(1)" [class.active]="option == 1">Artistes</a>
     <a (click)="setOption(2)" [class.active]="option == 2">Albums</a>
     <a (click)="setOption(3)" [class.active]="option == 3">Equipe</a>
-    <a (click)="setOption(4)" [class.active]="option == 4">Vidéos</a>
+    <a (click)="setOption(6)" [class.active]="option == 4">Partenaires</a>
     <a (click)="setOption(5)" [class.active]="option == 5">Réglages</a>
-    <a (click)="setOption(6)" [class.active]="option == 6">Partenaires</a>
+    
   
   </div>
 
@@ -16,18 +16,9 @@
 
   <edit-collab [collabs]="collabs" *ngSwitchCase="3"></edit-collab>
 
-  <div id="update-videos" *ngSwitchCase="4">
-    <div class="video" *ngFor="let v of videos; let i = index">
-      <iframe [src]="sanitize(v)" allowfullscreen></iframe>
-      <button type="button" (click)="removeVideo(i)">Supprimer</button>
-    </div>
-    <div class="add">
-      <input type="text" placeholder="Lien YouTube" #lien>
-      <button (click)="addVideo(lien.value)">Ajouter</button>
-    </div>
-  </div>
+  <partenaires *ngSwitchCase='6'></partenaires>
 
   <profil-settings *ngSwitchCase='5'></profil-settings>
 
-  <partenaires *ngSwitchCase='6'></partenaires>
+
 </div>

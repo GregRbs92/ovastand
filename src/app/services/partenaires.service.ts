@@ -25,23 +25,10 @@ export class PartenairesService{
     ajouterPartenaire(nom, image, url){
         const access_token = localStorage.getItem('accessToken');
         const m = `${url_api}/Containers/partenaires/download/${image}`;
-        return this.http.post(`${url_api}/partenaires?access_token=${access_token}`, {
+        return this.http.post<Partenaire>(`${url_api}/partenaires?access_token=${access_token}`, {
             nom : nom,
-            image : m,
+            logo : m,
             url : url
-        });
-    }
-
-    modifierPartenaire(id, nom, image, url){
-        return new Promise((resolve, reject) => {
-            const accessToken = localStorage.getItem('accessToken');
-            this.http.get<Partenaire>(`${url_api}/partenaires/${id}`).subscribe(partenaire => {
-                let json = {};
-                json['nom'] = nom;
-                json['image'] = image === '' ? partenaire.image : `${url_api}/Containers/partenaires/download/${image}`;
-                json['url'] = url;
-                this.http.put<Partenaire>(`${url_api}/partenaires/${id}?access_token=${accessToken}`, json).subscribe(success => resolve(success));
-            });
         });
     }
 
@@ -49,7 +36,7 @@ export class PartenairesService{
         const accessToken = localStorage.getItem('accessToken');
         let formData = new FormData();
         formData.set('file', image, image.name);
-        return this.http.post(`${url_api}/Containers/artistes/upload?access_token=${accessToken}`, formData);
+        return this.http.post(`${url_api}/Containers/partenaires/upload?access_token=${accessToken}`, formData);
     }
 }
 
