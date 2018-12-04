@@ -14,6 +14,7 @@ import { FileService } from '../../services/files.service';
 import { Partenaire } from '../../interfaces/partenaires';
 import { PartenairesService } from '../../services/partenaires.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import {SafeResourceUrl} from '@angular/platform-browser'
 
 
 
@@ -68,7 +69,8 @@ export class HomepageComponent implements OnInit {
         main_color: "#ed6f7d",
         second_color: "#333"
     };
-    safeYtUrl1, safeYtUrl2, safeSpotifyUrl, safeDeezerUrl: SafeResourceUrl;
+    safeYtUrl1; safeYtUrl2; safeSpotifyUrl; safeDeezerUrl : SafeResourceUrl;
+
 
     logo: string = "../../../assets/logo-noir.png";
 

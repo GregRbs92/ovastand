@@ -4,9 +4,16 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="logo-container">
-            <img [src]='logo' />
+        <div class="column-2-container">
+            <div class="logo-container">
+                <img [src]='logo' />
+            </div>
+            <div class="social-container">
+                <a href="https://www.facebook.com/Ovastand/" target="_blank"> <i class="fab fa-facebook fa-3x"></i></a>
+                <a href="https://www.youtube.com/user/OvastandRecords" target="_blank" style="margin-left: 5px"> <i class="fab fa-youtube fa-3x"></i></a>
+            </div>
         </div>
+        
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item">
@@ -62,14 +69,14 @@
                         
                             <hr />
                         <h2 [style.color]="colors['main_color']">
-                            <a *ngIf="artisteFocused.facebook" href="{{ artisteFocused.facebook }}"> <i class="fab fa-facebook fa-3x"></i></a>
-                            <a *ngIf="artisteFocused.twitter" href="{{ artisteFocused.twitter }}"> <i class="fab fa-twitter fa-3x"></i>   </a>
-                            <a *ngIf="artisteFocused.youtube" href="{{ artisteFocused.youtube }}"> <i class="fab fa-youtube fa-3x"></i>   </a>
-                            <a *ngIf="artisteFocused.instagram" href="{{ artisteFocused.instagram }}"> <i class="fab fa-instagram fa-3x"></i>   </a>
+                            <a *ngIf="artisteFocused.facebook" href="{{ artisteFocused.facebook }}" target="_blank"> <i class="fab fa-facebook fa-3x"></i></a>
+                            <a *ngIf="artisteFocused.twitter" href="{{ artisteFocused.twitter }}" target="_blank"> <i class="fab fa-twitter fa-3x"></i>   </a>
+                            <a *ngIf="artisteFocused.youtube" href="{{ artisteFocused.youtube }}" target="_blank"> <i class="fab fa-youtube fa-3x"></i>   </a>
+                            <a *ngIf="artisteFocused.instagram" href="{{ artisteFocused.instagram }}" target="_blank"> <i class="fab fa-instagram fa-3x"></i>   </a>
                         </h2>
 
                         <hr />
-                        <p *ngFor="let d of descriptionOnFocus">{{ d }}</p>
+                        <p class="descArtiste" *ngFor="let d of descriptionOnFocus">{{ d }}</p>
                         <hr />
                         <p><a href="{{ artisteFocused.website }}" target="_blank">Site Web</a></p>
                         <hr />
@@ -113,8 +120,10 @@
                 <perfect-scrollbar>
                     <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeAlbumPortfolio()"></i>
 
-                    <h2 [style.color]="colors['main_color']">{{ albumFocused.nom }} - {{ albumFocused.artiste }} <span class="marge"></span> {{ albumFocused.prix }}€ </h2>
+                    <h2 [style.color]="colors['main_color']">{{ albumFocused.nom }}</h2>
+                    <h3 [style.color]="colors['main_color']"> {{ albumFocused.artiste }}</h3>
                     <hr>
+                   
 
                     <div class="tracklist" [ngSwitch]="option">
                         <div id="options">
