@@ -1,3 +1,7 @@
+$sm-breakpoint: 576px;
+$md-breakpoint: 768px;
+$lg-breakpoint: 992px;
+
 #container{
     background-color:white;
 }
@@ -16,75 +20,84 @@ nav {
   position: fixed;
   z-index: 100;
   top: 0;
+  left: 0;
   width: 100%;
-  background-color: black;
+  justify-content: space-between;
+  background-color: white;
   text-align: right;
-  padding: 25px;
+  padding: 7px 25px;
   transition: all .2s ease;
 
-  .column-2-container{
-    column-count: 2;
-    display: flex;
-    .social-container{
-        
-        width: 25%;
-        i {
-            color: black;
-            width:100%;
-        }
-    }
-}
-}
-
-nav.scrolled {
-  background-color: black !important;
-  border-bottom: 1px solid #333;
-    
-  .nav-item a{
-      color:white;
+  .navbar-brand > img {
+    max-height: 45px;
   }
-  .column-2-container{
-    .social-container{
-        i {
-            color: white;
-        }
+
+  .navbar-collapse {
+    justify-content: flex-end;
+
+    .social-container {
+      @media screen and (max-width: $md-breakpoint) {
+        text-align: center;
+      }
     }
-}
-}
+    .social-container > a.youtube:hover {
+      color: #f00;
+    }
 
-nav .navbar-collapse {
-  text-align: center;
-}
+    .nav-item {
+      &:last-child a::after {
+        content: "";
+      }
 
-nav .nav-item a {
-  font: 600 1.2em "Raleway", sans-serif;
-  letter-spacing: .273em;
-  text-transform: uppercase;
-  padding: 7px;
-  padding-left: 0;
-  color: black;
-  -webkit-transition: color .3s ease;
-  -o-transition: color .3s ease;
-  transition: color .3s ease;
-  cursor: pointer;
-}
+      a {
+        font: 600 .85em "Raleway", sans-serif;
+        letter-spacing: .273em;
+        text-transform: uppercase;
+        padding: 7px;
+        padding-left: 0;
+        color: black;
+        transition: color .3s ease;
+        cursor: pointer;
 
-nav .nav-item a:hover {
-  color: #ed6f7d;
-  text-decoration: none;
-}
+        &:hover {
+          color: #ed6f7d;
+          text-decoration: none;
+        }
 
-nav .nav-item a::after {
-  content: "\B7";
-  font-family: "FontAwesome";
-  font-size: 3.5em;
-  vertical-align: middle;
-  position: relative;
-  margin-left: 7px;
-}
+        &::after {
+          content: "\B7";
+          font-family: "FontAwesome";
+          font-size: 3.5em;
+          vertical-align: middle;
+          position: relative;
+          top: -1px;
+          margin-left: 7px;
 
-nav .nav-item:last-child a::after {
-  content: "";
+          @media screen and (max-width: $md-breakpoint) {
+            content: "";
+          }
+        }
+      }
+
+      @media screen and (max-width: $md-breakpoint) {
+        text-align: center;
+      }
+    }
+  }
+
+  &.scrolled {
+    background-color: black !important;
+    border-bottom: 1px solid #333;
+    .navbar-collapse .nav-item > a {
+      color: #fff;
+      &:hover {
+        color: #ed6f7d;
+      }
+    }
+    .social-container > a {
+      color: #fff;
+    }
+  }
 }
 
 #albums>.portfolio>.description {
