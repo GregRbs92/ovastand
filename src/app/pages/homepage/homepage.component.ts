@@ -1,12 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import * as $ from 'jquery';
 import { HttpClient } from '@angular/common/http';
 
 import { Artiste } from '../../interfaces/artiste';
 import { Album } from '../../interfaces/album';
 import { Collaborateur}  from '../../interfaces/collaborateur';
-import { url_api } from '../../../environments/environment';
 import { ArtistesService } from '../../services/artistes.service';
 import { AlbumsService } from '../../services/albums.service';
 import { CollaborateursService } from '../../services/collaborateurs.service'
@@ -16,6 +14,7 @@ import { PartenairesService } from '../../services/partenaires.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import {SafeResourceUrl} from '@angular/platform-browser'
 
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 
 @Component({
@@ -81,49 +80,25 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
 
-    this.artisteProvider.getArtistes().subscribe(data => {
-      if(data) {
-        this.connectionError = false;
-        this.artistes = data.sort(this.compareOrder);
-      }
+    forkJoin(
+      this.artisteProvider.getArtistes(),
+      this.albumProvider.getAlbums(),
+      this.partenaireProvider.getPartenaires(),
+      this.collabProvider.getCollabs(),
+      this.fs.getColors()
+    )
+    .subscribe(res => {
+      this.connectionError = false;
+      this.artistes = res[0] ? res[0].sort(this.compareOrder) : [];
+      this.albums = res[1] ? res[1] : [];
+      this.partenaires = res[2] ? res[2] : [];
+      this.collabs = res[3] ? res[3] : [];
+      this.colors = res[4];
     }, err => {
-      console.log(err);
+      console.error(err);
       this.connectionError = true;
     });
 
-    this.albumProvider.getAlbums().subscribe(data => {
-      if(data) {
-        this.connectionError = false;
-        this.albums = data;
-      }
-    }, err => {
-      console.log(err);
-      this.connectionError = true;
-        });
-
-    this.partenaireProvider.getPartenaire().subscribe(data => {
-        if (data) {
-            this.connectionError = false;
-            this.partenaires = data;
-        }
-    }, err => {
-        console.log(err);
-        this.connectionError = true;
-    });
-
-    this.collabProvider.getCollabs().subscribe(data => {
-      if(data) {
-        this.connectionError = false;
-        this.collabs = data;
-      }
-    }, err => {
-      console.log(err);
-      this.connectionError = true;
-    });
-
-    this.fs.getColors().subscribe(data => {
-      this.colors = data;
-    });
   }
 
   @HostListener('window:scroll')

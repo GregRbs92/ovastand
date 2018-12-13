@@ -13,7 +13,7 @@ export class PartenairesService{
 
     constructor(private http : HttpClient) { }
 
-    getPartenaire(){
+    getPartenaires(){
         return this.http.get<Partenaire[]>(`${url_api}/partenaires`);
     }
 

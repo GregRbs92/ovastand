@@ -25,7 +25,7 @@ export class PartenairesComponent implements OnInit {
 
   ngOnInit() {
     $(window).resize(calculHeight);
-    this.partenaireProvider.getPartenaire().subscribe(data => {
+    this.partenaireProvider.getPartenaires().subscribe(data => {
       this.partenaires = data;
       setTimeout(calculHeight, 0);
     });
@@ -44,7 +44,7 @@ export class PartenairesComponent implements OnInit {
     }
     this.partenaireProvider.ajouterPartenaire(nom, i, url).subscribe(() => {
       this.showModal = false;
-      this.partenaireProvider.getPartenaire().subscribe(data => {
+      this.partenaireProvider.getPartenaires().subscribe(data => {
         this.partenaires = data;
         setTimeout(calculHeight, 0);
       });
@@ -53,7 +53,7 @@ export class PartenairesComponent implements OnInit {
 
   deletePartenaire(id){
     this.partenaireProvider.deletePartenaire(id).subscribe(() => {
-      this.partenaireProvider.getPartenaire().subscribe(data => {
+      this.partenaireProvider.getPartenaires().subscribe(data => {
         this.partenaires = data;
         setTimeout(calculHeight, 0);
       });

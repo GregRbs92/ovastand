@@ -97,7 +97,6 @@
       </svg></div>
 
     <div class="liste-items" id="liste-artistes">
-      <!--<div class="artiste" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">-->
       <div class="item" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">
         <div class="item-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
         <div class="item-caption">
