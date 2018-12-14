@@ -41,63 +41,73 @@
         <i class="fa fa-circle"></i>
       </span>
     </div>
-    <div class="portfolio" *ngIf="artisteFocused" [@slideDownArtiste]="artisteFocused">
-      <div class="mediaContainer">
-        <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
-        <div class="video-container">
-          <iframe [src]='safeYtUrl1' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-          <iframe [src]='safeYtUrl2' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        </div>
+      <!-- Modal -->
+      <div class="modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="artisteFocused">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                    <div class="portfolioArtiste">
+                        <div class="mediaContainer">
+                            <div class="img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
+                            <div class="video-container">
+                                <iframe [src]='safeYtUrl1' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                <iframe [src]='safeYtUrl2' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="textContainer">
+                            <div class="description">
+                                <i [style.color]="colors['main_color']" id="close-btn" data-dismiss="modal" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>                          
+                                    <h2 [style.color]="colors['main_color']">
+                                        {{ artisteFocused.nom }}
+                                    </h2>
+                                    <h3 [style.color]="colors['main_color']">
+                                        {{ artisteFocused.genre }}
+                                    </h3>
+                                    <hr class="mobile-hr" />
+                                    <div class="mobile-img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
+
+                                    <hr />
+                                    <h2 [style.color]="colors['main_color']">
+                                        <a *ngIf="artisteFocused.facebook" href="{{ artisteFocused.facebook }}" target="_blank"> <i class="fab fa-facebook fa-3x"></i></a>
+                                        <a *ngIf="artisteFocused.twitter" href="{{ artisteFocused.twitter }}" target="_blank">
+                                            <i class="fab fa-twitter fa-3x"></i>
+                                        </a>
+                                        <a *ngIf="artisteFocused.youtube" href="{{ artisteFocused.youtube }}" target="_blank">
+                                            <i class="fab fa-youtube fa-3x"></i>
+                                        </a>
+                                        <a *ngIf="artisteFocused.instagram" href="{{ artisteFocused.instagram }}" target="_blank">
+                                            <i class="fab fa-instagram fa-3x"></i>
+                                        </a>
+                                    </h2>
+
+                                    <hr />
+                                    <p class="descArtiste" *ngFor="let d of descriptionOnFocus">{{ d }}</p>
+                                    <hr />
+                                    <p><a href="{{ artisteFocused.website }}" target="_blank">Site Web</a></p>
+                                    <hr />
+                                    <h2 [style.color]="colors['main_color']">DATES</h2>
+                                    <p *ngFor="let d of artisteFocused.tourDates">{{ d }}</p>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="textContainer">
-        <div class="description">
-          <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>
-          <perfect-scrollbar>
-            <!--<i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeArtistePortfolio()"></i>-->
+    
+    
 
-            <h2 [style.color]="colors['main_color']">
-              {{ artisteFocused.nom }}
-            </h2>
-            <h3 [style.color]="colors['main_color']">
-              {{ artisteFocused.genre }}
-            </h3>
-
-
-            <hr />
-            <h2 [style.color]="colors['main_color']">
-              <a *ngIf="artisteFocused.facebook" href="{{ artisteFocused.facebook }}" target="_blank"> <i class="fab fa-facebook fa-3x"></i></a>
-              <a *ngIf="artisteFocused.twitter" href="{{ artisteFocused.twitter }}" target="_blank"> <i class="fab fa-twitter fa-3x"></i>
-              </a>
-              <a *ngIf="artisteFocused.youtube" href="{{ artisteFocused.youtube }}" target="_blank"> <i class="fab fa-youtube fa-3x"></i>
-              </a>
-              <a *ngIf="artisteFocused.instagram" href="{{ artisteFocused.instagram }}" target="_blank">
-                <i class="fab fa-instagram fa-3x"></i> </a>
-            </h2>
-
-            <hr />
-            <p class="descArtiste" *ngFor="let d of descriptionOnFocus">{{ d }}</p>
-            <hr />
-            <p><a href="{{ artisteFocused.website }}" target="_blank">Site Web</a></p>
-            <hr />
-            <h2 [style.color]="colors['main_color']">DATES</h2>
-            <p *ngFor="let d of artisteFocused.tourDates">{{ d }}</p>
-          </perfect-scrollbar>
-        </div>
-      </div>
+    <div class="loader" *ngIf="!artistes && !connectionError">
+        <svg width="200px" height="200px" xmlns="http://www.w3.org/2000/svg"viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;">
+            <path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)">
+                <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51"
+            keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
+            </path>
+        </svg>
     </div>
 
-    <div class="loader" *ngIf="!artistes && !connectionError"><svg width="200px" height="200px" xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-eclipse" style="background: none;">
-        <path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#e1a533" transform="rotate(108 50 51)">
-          <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51"
-            keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
-        </path>
-      </svg></div>
-
     <div class="liste-items" id="liste-artistes">
-      <div class="item" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">
+      <div class="item" data-toggle="modal" data-target="#portfolioModal" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">
         <div class="item-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
         <div class="item-caption">
           <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
@@ -166,7 +176,6 @@
         votre connexion internet.</p>
     </div>
   </section>
-
 
   <div class="itemContainer" id="partenaires">
     <div class="separator">
@@ -240,5 +249,6 @@
     <p>Conception: Grégoire Rabasse &amp; Timothée Babinet</p>
     <p>Tous droits réservés</p>
   </footer>
+
 
 </div>

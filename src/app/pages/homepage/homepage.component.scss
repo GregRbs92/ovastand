@@ -234,60 +234,69 @@ nav {
   }
 }
 
-#artistes>.portfolio>.mediaContainer {
-  width: 50%;
+.portfolioArtiste>.mediaContainer {
+  width: 50vw;
 }
 
-#artistes>.portfolio>.textContainer {
-  width: 50%;
-}
 
-#artistes>.portfolio>.mediaContainer>.img-container {
+
+.portfolioArtiste>.mediaContainer>.img-container {
   background-position: center center;
   background-size: cover;
-  width: 100%;
-  height: 100%;
-}
-
-#artistes>.portfolio>.mediaContainer>.video-container {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  background-color: antiquewhite;
-  line-height: 0;
-}
-
-#artistes>.portfolio>.mediaContainer>.video-container>iframe {
   width: 100%;
   height: 50%;
 }
 
-#artistes>.portfolio {
+.portfolioArtiste>.mediaContainer>.video-container {
+  width: 100%;
+  height: 50%;
+  background-color: antiquewhite;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.portfolioArtiste>.mediaContainer>.video-container>iframe {
+  width: 100%;
+  height: 50%;
+  margin: 0;
+  padding: 0;
+
+}
+
+.portfolioArtiste {
+  display: flex;
   display: -webkit-box;
   display: -ms-flexbox;
   column-count: 2;
-  width: 95%;
-  max-width: 800px;
-  margin: 60px auto;
-  height: 400px;
+  width: 50vw;
+  height: 100%;
+  justify-content: center;
   background-color: black;
 }
 
-#artistes>.portfolio>.textContainer>.description {
+.portfolioArtiste>.textContainer {
+  width: 50vw;
+}
+
+.portfolioArtiste>.textContainer>.description {
   position: relative;
   text-align: justify;
   overflow: hidden;
 }
 
-#artistes>.portfolio>.textContainer>.description hr {
+.portfolioArtiste>.textContainer>.description .mobile-img-container, .mobile-hr{
+    visibility:hidden;
+}
+
+.portfolioArtiste>.textContainer>.description hr {
   margin-bottom: 30px;
   border-width: .5px;
   border-color: #888;
   margin: 0 10px 0 15px;
 }
 
-#artistes>.portfolio>.textContainer>.description p {
+.portfolioArtiste>.textContainer>.description p {
   color: #fff;
   padding: 0 10px 0 15px;
   margin: 15px 0;
@@ -298,7 +307,7 @@ nav {
   line-height: 0;
 }
 
-#artistes>.portfolio>.textContainer>.description h2 {
+.portfolioArtiste>.textContainer>.description h2 {
   color: black;
   margin: 15px;
   font-size: 3em;
@@ -307,14 +316,14 @@ nav {
   text-transform: uppercase;
 }
 
-#artistes>.portfolio>.textContainer>.description h3 {
+.portfolioArtiste>.textContainer>.description h3 {
   color: black;
   margin: 15px;
   letter-spacing: .063em;
   text-transform: uppercase;
 }
 
-#artistes>.portfolio>.textContainer>.description a:hover {
+.portfolioArtiste>.textContainer>.description a:hover {
   color: #e1a631;
 }
 
@@ -374,8 +383,8 @@ nav {
     overflow: hidden;
     position: relative;
     height: auto;
-    width: 20%;
-    height: 20vw;
+    width: 12.5%;
+    height: 12.5vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -539,16 +548,50 @@ footer {
   }
 }
 
-@media all and (max-width: 420px) {
-  /*#artistes {
-    &>.portfolio {
-      flex-direction: column;
-      &>div {
-      width: 100%;
-      height: 200px;
+@media screen and (max-width: 420px) {
+
+  .portfolio{
+      flex-direction:column;
+      
+      .img-container{
+          display:none;
+          height:0%;
       }
-    }
-  }*/
+      .description{
+          width: 100%;
+      }
+  }
+
+  .portfolioArtiste{
+      column-count: 1;
+      width:100%;
+      flex-direction:column-reverse;
+      .mediaContainer{
+          width:100%;
+          .img-container{
+              visibility:hidden;
+          }
+          
+      }
+      .textContainer{
+          width:100%;
+      }
+  }
+
+  .portfolioArtiste>.textContainer>.description .mobile-img-container{
+      visibility: visible;
+      background-position: center center;
+      background-size: cover;
+      width:100%;
+      height:100%
+  }
+
+  .portfolioArtiste>.textContainer>.description .mobile-hr {
+    margin-bottom: 30px;
+    border-width: .5px;
+    border-color: #888;
+    margin: 0 10px 0 15px;
+  }
 
   #partenaires {
     &>#partenaires-container {
