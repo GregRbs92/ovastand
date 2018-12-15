@@ -64,10 +64,9 @@
                                     <h3 [style.color]="colors['main_color']">
                                         {{ artisteFocused.genre }}
                                     </h3>
-                                    <hr class="mobile-hr" />
                                     <div class="mobile-img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
 
-                                    <hr />
+                                    <hr class="hide_on_ss" />
                                     <h2 [style.color]="colors['main_color']">
                                         <a *ngIf="artisteFocused.facebook" href="{{ artisteFocused.facebook }}" target="_blank"> <i class="fab fa-facebook fa-3x"></i></a>
                                         <a *ngIf="artisteFocused.twitter" href="{{ artisteFocused.twitter }}" target="_blank">
