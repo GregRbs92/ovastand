@@ -38,11 +38,11 @@ export class PartenairesComponent implements OnInit {
   }
 
   ajouterPartenaire(nom, image, url) {
-    const i = image.files[0] ? image.files[0].name : '';
-    if (i) {
-      this.partenaireProvider.uploadImage(image.files[0]).subscribe();
-    }
-    this.partenaireProvider.ajouterPartenaire(nom, i, url).subscribe(() => {
+    let i = image.files[0] ? image.files[0].name : '';
+    let url_logo = `${url_api}/Containers/partenaires/download/${i}`;
+    this.partenaireProvider.uploadImage(image.files[0]).subscribe();
+
+    this.partenaireProvider.ajouterPartenaire(nom, i, url_logo, url).subscribe(() => {
       this.showModal = false;
       this.partenaireProvider.getPartenaires().subscribe(data => {
         this.partenaires = data;

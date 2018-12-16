@@ -25,67 +25,56 @@ export class AlbumsService {
     const accessToken = localStorage.getItem('accessToken');
     var album: Album; 
     this.getAlbum(id).subscribe(data => { 
-      album = data
-      album.photos.forEach(p => {
-        var photo = p.split("/")[7];
-        this.deletePhoto(photo);
-      });
+        album = data;
+        this.deletePhoto(album.photo);
     });
     return this.http.delete(`${url_api}/albums/${id}?access_token=${accessToken}`);
   }
 
-  ajouterAlbum(nom, artiste, tracklist, prix, photos, deezer, spotify, itunes) {
+  ajouterAlbum(nom, artiste, prix, url_photo, photo, deezer, spotify) {
     const accessToken = localStorage.getItem('accessToken');
 
     return this.http.post<Album>(`${url_api}/albums?access_token=${accessToken}`, {
       nom: nom,
       artiste: artiste,
-      tracklist: tracklist,
       prix: prix,
+      url_photo: url_photo,
+      photo: photo,
       deezer: deezer,
-      spotify: spotify,
-      itunes: itunes,
-      photos: photos,
-
-
+      spotify: spotify
    });
   }
 
-  modifierAlbum(id, nom, art, tracklist, prix, photos, deezer, spotify, itunes) {
+  modifierAlbum(id, nom, art, prix, url_photo, photo, deezer, spotify) {
 
     return new Promise((resolve, reject) => {
-      const accessToken = localStorage.getItem('accessToken');
-      this.getAlbum(id).subscribe(data => {
-        if (photos.length == 0) {
-          photos = data.photos;
-        }
-        else{
-          data.photos.forEach(p => {
-            if (!photos.includes(p)) {
-              var photo = p.split("/")[7];
-              this.deletePhoto(photo);
+        const accessToken = localStorage.getItem('accessToken');
+        this.getAlbum(id).subscribe(data => {
+            let album = data;
+           
+            if (!photo) {
+                photo = album.photo;
+                url_photo = album.url_photo;
             }
-            
-          });
-        }
-      });
+            else
+                this.deletePhoto(album.photo);
+        });
 
-      this.http.get<Album>(`${url_api}/albums/${id}`).subscribe(artiste =>{
+        this.http.get<Album>(`${url_api}/albums/${id}`).subscribe(artiste =>{
         let formData = {};
         formData['nom'] = nom;
         formData['artiste'] = art;
-        formData['tracklist'] = tracklist;
         formData['prix'] = +prix;
-        formData['photos'] = photos;
+        formData['url_photo'] = url_photo;
+        formData['photo'] = photo;
         formData['deezer'] = deezer;
         formData['spotify'] = spotify;
-        formData['itunes'] = itunes;
         
         
         this.http.put<Album>(`${url_api}/albums/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));
-      });
+        });
     });
-  }
+    }
 
   uploadPhoto(file: File) {
     const accessToken = localStorage.getItem('accessToken');

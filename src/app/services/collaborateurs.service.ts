@@ -18,7 +18,7 @@ export class CollaborateursService {
   }
 
   getCollab(id){
-    return this.http.get<Collaborateur>(`${url_api}/albums/${id}`); 
+    return this.http.get<Collaborateur>(`${url_api}/collaborateurs/${id}`); 
   }
 
   deleteCollab(id) {
@@ -26,49 +26,46 @@ export class CollaborateursService {
     var collab : Collaborateur;
     this.getCollab(id).subscribe(data => { 
       collab = data
-      var photo = collab.photo.split("/")[7];
-
-      this.deletePhoto(photo);
+      this.deletePhoto(collab.photo);
     });
     return this.http.delete(`${url_api}/collaborateurs/${id}?access_token=${accessToken}`);
   }
 
-  ajouterCollab(nom, fonction, email, photo) {
+  ajouterCollab(nom, fonction, email, url_photo, photo) {
     const accessToken = localStorage.getItem('accessToken');
-    const p = `${url_api}/containers/collaborateurs/download/${photo}`;
     return this.http.post<Collaborateur>(`${url_api}/collaborateurs?access_token=${accessToken}`, {
       nom: nom,
       fonction: fonction,
       email: email,
-      photo: p
+      url_photo: url_photo,
+      photo: photo
    });
   }
 
-  modifierCollab(id, nom, fonction, email, photo) {
+  modifierCollab(id, nom, fonction, email, url_photo, photo) {
 
     return new Promise((resolve, reject) => {
-      const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
+     
+    this.getCollab(id).subscribe(data => { 
+        let collab = data
+
+        if (!photo) {
+            photo = collab.photo;
+            url_photo = collab.url_photo;
+        }
+        else
+            this.deletePhoto(collab.photo);
+    });
       
-      if(photo){
-        photo = `${url_api}/containers/collaborateurs/download/${photo}`;
-        var collab : Collaborateur;
-        this.getCollab(id).subscribe(data => { 
-          collab = data
-          var photo_prof = collab.photo.split("/")[7];        
-          this.deletePhoto(photo_prof);
-        });
-      }
-      else{
-        this.getCollab(id).subscribe( data => {
-          photo = data.photo;
-        })
-      }
+
       
       this.http.get<Collaborateur>(`${url_api}/collaborateurs/${id}`).subscribe(artiste =>{
         let formData = {};
         formData['nom'] = nom;
         formData['fonction'] = fonction;
         formData['email'] = email;
+        formData['url_photo'] = url_photo;
         formData['photo'] = photo;
         
         this.http.put<Collaborateur>(`${url_api}/collaborateurs/${id}?access_token=${accessToken}`, formData).subscribe(success => resolve(success));

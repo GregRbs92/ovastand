@@ -10,6 +10,8 @@ export interface Artiste {
     website: string,
     photo_profil: string,
     photo_couverture: string,
+    url_photo_profil: string,
+    url_photo_couverture: string,
     ordre: number
     videoUrl1: string,
     videoUrl2: string,

@@ -22,12 +22,12 @@ export class PartenairesService{
         return this.http.delete(`${url_api}/partenaires/${id}?access_token=${accessToken}`);
     }
 
-    ajouterPartenaire(nom, image, url){
+    ajouterPartenaire(nom, image, url_logo, url){
         const access_token = localStorage.getItem('accessToken');
-        const m = `${url_api}/Containers/partenaires/download/${image}`;
         return this.http.post<Partenaire>(`${url_api}/partenaires?access_token=${access_token}`, {
             nom : nom,
-            logo : m,
+            logo: image,
+            url_logo: url_logo,
             url : url
         });
     }

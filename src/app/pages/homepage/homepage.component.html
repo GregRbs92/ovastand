@@ -64,7 +64,7 @@
                                     <h3 [style.color]="colors['main_color']">
                                         {{ artisteFocused.genre }}
                                     </h3>
-                                    <div class="mobile-img-container" [style.backgroundImage]="'url('+ artisteFocused.photo_couverture +')'"></div>
+                                    <div class="mobile-img-container" [style.backgroundImage]="'url('+ artisteFocused.url_photo_couverture +')'"></div>
 
                                     <hr class="hide_on_ss" />
                                     <h2 [style.color]="colors['main_color']">
@@ -107,7 +107,7 @@
 
     <div class="liste-items" id="liste-artistes">
       <div class="item" data-toggle="modal" data-target="#portfolioModal" (click)="selectArtiste(a)" [ngx-scroll-to]="'#artistes'" *ngFor="let a of artistes">
-        <div class="item-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
+        <div class="item-image" [style.backgroundImage]="'url('+ a.url_photo_profil +')'"></div>
         <div class="item-caption">
           <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
           <p class="style">{{ a.styleMusical }}</p>
@@ -131,7 +131,7 @@
       </span>
     </div>
     <div class="portfolio" *ngIf="albumFocused" [@slideDown]="albumFocused">
-      <div class="img-container" [style.backgroundImage]="'url('+ albumFocused.photos[0] +')'"></div>
+      <div class="img-container" [style.backgroundImage]="'url('+ albumFocused.url_photo +')'"></div>
       <div class="description">
         <perfect-scrollbar>
           <i [style.color]="colors['main_color']" id="close-btn" class="fa fa-times-circle" (click)="closeAlbumPortfolio()"></i>
@@ -165,7 +165,7 @@
 
     <div class="liste-items" id="liste-albums">
       <div class="item" (click)="selectAlbum(a)" [ngx-scroll-to]="'#albums'" *ngFor="let a of albums">
-        <div class="item-image" [style.backgroundImage]="'url('+ a.photos[0] +')'"></div>
+        <div class="item-image" [style.backgroundImage]="'url('+ a.url_photo +')'"></div>
         <div class="item-caption">
           <h3 class="nom" [style.color]="colors['main_color']">{{ a.nom }}</h3>
           <p class="artiste">{{ a.artiste }}</p>
@@ -200,7 +200,7 @@
     <div id="partenaires-container">
       <div class="partenaire" *ngFor="let p of partenaires">
         <a href="{{ p.url }}">
-          <img src="{{ p.logo }}" title="{{ p.nom }}">
+          <img src="{{ p.url_logo }}" title="{{ p.nom }}">
         </a>
       </div>
     </div>
@@ -229,7 +229,7 @@
 
     <div class="liste-items" id="liste-collabs">
       <div class="item" [ngx-scroll-to]="'#collabs'" *ngFor="let c of collabs">
-        <div class="item-image" [style.backgroundImage]="'url('+ c.photo +')'"></div>
+        <div class="item-image" [style.backgroundImage]="'url('+ c.url_photo +')'"></div>
         <div class="item-caption">
           <h3 class="nom" [style.color]="colors['main_color']">{{ c.nom }} - {{ c.fonction }}</h3>
           <p class="nom">{{ c.email }}</p>

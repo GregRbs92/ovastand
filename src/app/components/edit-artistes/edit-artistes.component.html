@@ -2,7 +2,7 @@
   <div class="artiste" *ngFor="let a of artistes" draggable="true" (drop)="drop($event)" (dragover)="allowDrop($event)" (dragstart)="drag($event)" >
     <div class="order" hidden="hidden">{{a.ordre}}</div>
     <div class="id" hidden="hidden">{{a.id}}</div>
-    <div class="artiste-image" [style.backgroundImage]="'url('+ a.photo_profil +')'"></div>
+    <div class="artiste-image" [style.backgroundImage]="'url('+ a.url_photo_profil +')'"></div>
     <div class="artiste-caption">
       <h3 class="nom">{{ a.nom }} - {{ a.genre }}</h3>
       <button class="btn btn-primary" (click)="toggleModal(a, 'update')">Modifier</button>

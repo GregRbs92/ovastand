@@ -40,13 +40,12 @@ export class EditCollabComponent {
   }
 
   ajouterCollab(nom, fonction, email, photo) {
-    let p = photo.files[0] ? photo.files[0].name : '';
-    
-    if (p) {
-      this.collabProvider.uploadPhoto(photo.files[0]).subscribe();
-    }
 
-    this.collabProvider.ajouterCollab(nom, fonction, email, p).subscribe((collab) => {
+    let p = photo.files[0] ? photo.files[0].name : '';
+    let url_photo = `${url_api}/containers/collaborateurs/download/${p}`;
+    this.collabProvider.uploadPhoto(photo.files[0]).subscribe();
+
+    this.collabProvider.ajouterCollab(nom, fonction, email, url_photo, p).subscribe((collab) => {
       this.showModal = false;
       this.collabProvider.getCollabs().subscribe(data => {
         this.collabs = data;
@@ -56,17 +55,20 @@ export class EditCollabComponent {
 
   modifierCollab(nom, fonction, email, photo) {
     let p = photo.files[0] ? photo.files[0].name : '';
-
+    let url_photo = "";
     if (p) {
-      this.collabProvider.uploadPhoto(photo.files[0]).subscribe();
+        url_photo = `${url_api}/containers/collaborateurs/download/${p}`;
+        this.collabProvider.uploadPhoto(photo.files[0]).subscribe();
     }
+    
+    
 
-    this.collabProvider.modifierCollab(this.selectedCollab.id, nom, fonction, email, p).then((collab) => {
-      this.showModal = false;
-      this.collabProvider.getCollabs().subscribe(data => {
-        this.collabs = data;
-      });
+    this.collabProvider.modifierCollab(this.selectedCollab.id, nom, fonction, email,url_photo, p).then((collab) => {
+        this.showModal = false;
+        this.collabProvider.getCollabs().subscribe(data => {
+            this.collabs = data;
+        });
     });
-  }
+    }
 }
 

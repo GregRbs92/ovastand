@@ -3,5 +3,6 @@ export interface Collaborateur {
     nom: string,
     fonction: string,
     email: string,
-    photo: string;
+    photo: string,
+    url_photo: string
 }

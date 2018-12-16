@@ -1,6 +1,6 @@
 <div id="liste-partenaires">
   <div class="partenaire" *ngFor="let p of partenaires">
-    <div class="partenaire-image" [style.backgroundImage]="'url('+ p.logo +')'"></div>
+    <div class="partenaire-image" [style.backgroundImage]="'url('+ p.url_logo +')'"></div>
     <div class="partenaire-caption">
       <h3 class="nom">{{ p.nom }}</h3>
       <button class="btn btn-danger" (click)="deletePartenaire(p.id)">Supprimer</button>

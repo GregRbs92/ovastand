@@ -1,6 +1,6 @@
 <div id="liste-albums">
   <div class="album" *ngFor="let a of albums">
-    <div class="album-image" [style.backgroundImage]="'url('+ a.photos[0] +')'"></div>
+    <div class="album-image" [style.backgroundImage]="'url('+ a.url_photo +')'"></div>
     <div class="album-caption">
       <h3 class="nom">{{ a.nom }} - {{ a.artiste }}</h3>
       
@@ -22,15 +22,13 @@
     <h1>{{ action == 'add' ? 'Ajouter un album' : 'Modifier un album' }}</h1>
     <input class="input-group-text" type="text" placeholder="Nom" #nom [value]="selectedAlbum.nom ? selectedAlbum.nom : ''" />
     <input class="input-group-text" type="text" placeholder="Artiste" #artiste [value]="selectedAlbum.artiste ? selectedAlbum.artiste : ''" />
-    <textarea class="input-group-text" type="text" placeholder="Tracklist" #tracklist [value]="selectedAlbum.tracklist ? selectedAlbum.tracklist : ''"></textarea>
     <input class="input-group-text" type = "text" placeholder="Prix " #prix [value] = "selectedAlbum.prix ? selectedAlbum.prix : ''">
     <input class="input-group-text" type = "text" placeholder="Lien Deezer" #deezer [value] = "selectedAlbum.deezer ? selectedAlbum.deezer : ''">
     <input class="input-group-text" type = "text" placeholder="Lien Spotify" #spotify [value] = "selectedAlbum.spotify ? selectedAlbum.spotify : ''">
-    <input class="input-group-text" type = "text" placeholder="Lien Itunes" #itunes [value] = "selectedAlbum.itunes ? selectedAlbum.itunes: ''">
-    <label for="photos_album">Photos</label>
-    <input id="photos_album" class="input-group-text" type="file" name="file" #photos multiple="multiple" />
+    <label for="photos">Photo</label>
+    <input id="photos" class="input-group-text" type="file" name="file" #photos/>
     
     
-    <button type="submit" form="album_form" (click)="action == 'add' ? ajouterAlbum(nom.value, artiste.value, tracklist.value, prix.value, photos, deezer.value, spotify.value, itunes.value) : modifierAlbum(nom.value, artiste.value, tracklist.value, prix.value, photos, deezer.value, spotify.value, itunes.value)">Valider</button>
+    <button type="submit" form="album_form" (click)="action == 'add' ? ajouterAlbum(nom.value, artiste.value, prix.value, photos, deezer.value, spotify.value) : modifierAlbum(nom.value, artiste.value, prix.value, photos, deezer.value, spotify.value)">Valider</button>
   </div>
 </div>

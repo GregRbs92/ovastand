@@ -41,15 +41,19 @@ export class EditArtistesComponent {
   }
 
   ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, urlYt1, urlYt2, tourDates) {
-    let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
-    let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
+    let profil = photo_profil.files[0] ? photo_profil.files[0].name : '';
+    let couverture = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
+
+    let url_profil = "";
+    let url_couverture = "";
     var ordre;
-    if (p1) {
-      this.artisteProvider.uploadPhoto(photo_profil.files[0]).subscribe();
-    }
-    if (p2) {
-      this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
-    }
+
+    url_profil = `${url_api}/containers/artistes/download/${profil}`;
+    this.artisteProvider.uploadPhoto(photo_profil.files[0]).subscribe();
+    
+    url_couverture = `${url_api}/containers/artistes/download/${couverture}`;
+    this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
+
     var tabDates = tourDates.split('\n');
 
     if (this.artistes)
@@ -57,7 +61,7 @@ export class EditArtistesComponent {
     else
         ordre = 1;
 
-    this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2, ordre, urlYt1, urlYt2, tabDates).subscribe((artiste) => {
+    this.artisteProvider.ajouterArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, url_profil, profil,url_couverture, couverture, ordre, urlYt1, urlYt2, tabDates).subscribe((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
         this.artistes = data.sort(this.compareOrder);
@@ -66,16 +70,23 @@ export class EditArtistesComponent {
   }
 
   modifierArtiste(nom, genre, description, facebook, twitter, youtube, instagram, website, photo_profil, photo_couverture, urlYt1, urlYt2, tourDates) {
-    let p1 = photo_profil.files[0] ? photo_profil.files[0].name : '';
-    let p2 = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
-    if (p1) {
-      this.artisteProvider.uploadPhoto(photo_profil.files[0]).subscribe();
+    let profil = photo_profil.files[0] ? photo_profil.files[0].name : '';
+    let couverture = photo_couverture.files[0] ? photo_couverture.files[0].name : '';
+
+    
+    let url_profil = "";
+    let url_couverture = "";
+    var ordre;
+    if (profil) {
+        url_profil = `${url_api}/containers/artistes/download/${profil}`;
+        this.artisteProvider.uploadPhoto(photo_profil.files[0]).subscribe();
     }
-    if (p2) {
-      this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
+    if (couverture) {
+        url_couverture = `${url_api}/containers/artistes/download/${couverture}`;
+        this.artisteProvider.uploadPhoto(photo_couverture.files[0]).subscribe();
     }
     var tabDates = tourDates.split('\n');
-    this.artisteProvider.modifierArtiste(this.selectedArtiste.id, nom, genre, description, facebook, twitter, youtube, instagram, website, p1, p2, urlYt1, urlYt2, tabDates).then((artiste) => {
+    this.artisteProvider.modifierArtiste(this.selectedArtiste.id, nom, genre, description, facebook, twitter, youtube, instagram, website, url_profil, profil, url_couverture, couverture, urlYt1, urlYt2, tabDates).then((artiste) => {
       this.showModal = false;
       this.artisteProvider.getArtistes().subscribe(data => {
         this.artistes = data.sort(this.compareOrder);
@@ -128,4 +139,6 @@ export class EditArtistesComponent {
       return r;
   }
 }
+
+
 
