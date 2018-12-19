@@ -58,18 +58,18 @@ export class EditAlbumComponent {
   }
 
   modifierAlbum(nom, artiste, prix, photos, deezer, spotify) {
-      let photo = photos.files[0] ? photos.files[0].name : '';
-      let url_photo = "";
-      if (photo) {
-          url_photo = `${url_api}/containers/albums/download/${photo}`;
-          this.albumProvider.uploadPhoto(photos.files[0]).subscribe();
-      }
+    let photo = photos.files[0] ? photos.files[0].name : '';
+    let url_photo = "";
+    if (photo) {
+      url_photo = `${url_api}/containers/albums/download/${photo}`;
+      this.albumProvider.uploadPhoto(photos.files[0]).subscribe();
+    }
 
-    this.albumProvider.modifierAlbum(this.selectedAlbum.id, nom, artiste, prix, url_photo, photo, deezer, spotify).then((artiste) => {
-        this.showModal = false;
-        this.albumProvider.getAlbums().subscribe(data => {
+    this.albumProvider.modifierAlbum(this.selectedAlbum.id, nom, artiste, prix, url_photo, photo, deezer, spotify).subscribe(artiste => {
+      this.showModal = false;
+      this.albumProvider.getAlbums().subscribe(data => {
         this.albums = data;
-        });
+      });
     });
     }
 

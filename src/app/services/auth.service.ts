@@ -16,7 +16,7 @@ export class AuthService {
     let accessToken = localStorage.getItem('accessToken');
     let userId = localStorage.getItem('userId');
     if (!accessToken || !userId) {
-      return false;
+      return new Observable<boolean>(observer => {observer.next(false); observer.complete()});
     }
     return this.http.get(`${url_api}/utilisateurs/${userId}?access_token=${accessToken}`)
       .map((response) => {
