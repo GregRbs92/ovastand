@@ -241,6 +241,7 @@ nav {
 .portfolioArtiste>.mediaContainer>.img-container {
   background-position: center center;
   background-size: cover;
+  overflow:visible;
   width: 100%;
   height: 50%;
 }
@@ -267,7 +268,7 @@ nav {
   display: -webkit-box;
   display: -ms-flexbox;
   column-count: 2;
-  width: 50vw;
+  width: 100%;
   height: 100%;
   justify-content: center;
   background-color: black;
